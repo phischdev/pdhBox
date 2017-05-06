@@ -115,7 +115,7 @@ Ext.define('Rambox.view.main.MainController', {
 		var me = this;
 
 		// Clear counter for unread messaging
-		document.title = 'Rambox';
+		document.title = 'HumanistenBox';
 
 		if ( btn ) {
 			Ext.Msg.confirm(locale['app.window[12]'], locale['app.window[14]'], function(btnId) {
@@ -127,7 +127,7 @@ Ext.define('Rambox.view.main.MainController', {
 					});
 					if ( Ext.isFunction(callback) ) callback();
 					Ext.cq1('app-main').resumeEvent('remove');
-					document.title = 'Rambox';
+					document.title = 'HumanistenBox';
 				}
 			});
 		} else {
@@ -138,7 +138,7 @@ Ext.define('Rambox.view.main.MainController', {
 			});
 			if ( Ext.isFunction(callback) ) callback();
 			Ext.cq1('app-main').resumeEvent('remove');
-			document.title = 'Rambox';
+			document.title = 'HumanistenBox';
 		}
 	}
 

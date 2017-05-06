@@ -27,7 +27,9 @@ Ext.define('Rambox.Application', {
 	,getStoredServices: function () {
 		var stored = Ext.getStore('Services').load();
 		stored = stored.data.items;
-		stored = stored.map(g => g.data);
+		stored = stored.map( function (g) {
+			return g.data;
+		});
 		return stored;
 	}
 	,defaultServices: function () {
@@ -502,9 +504,9 @@ Ext.define('Rambox.Application', {
 	,updateTotalNotifications: function( newValue, oldValue ) {
 		newValue = parseInt(newValue);
 		if ( newValue > 0 )	{
-			document.title = 'Rambox (' + Rambox.util.Format.formatNumber(newValue) + ')';
+			document.title = 'HumanistenBox (' + Rambox.util.Format.formatNumber(newValue) + ')';
 		} else {
-			document.title = 'Rambox';
+			document.title = 'HumanistenBox';
 		}
 	}
 
