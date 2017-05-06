@@ -37,7 +37,7 @@ Ext.define('Rambox.store.ServicesList', {
 			type: 'mitglieder'
 		},
 		{
-			id: 'slack'
+			 id: 'slack'
 			,logo: 'slack.png'
 			,name: 'Slack'
 			,description: 'Slack brings all your communication together in one place. It’s real-time messaging, archiving and search for modern teams.'
@@ -64,7 +64,7 @@ Ext.define('Rambox.store.ServicesList', {
 			//,js_unread: 'function checkUnread(){var a=0,b=0;document.querySelector(".widget-link.badge-notification.unread-private-messages")&&(a=parseInt(document.querySelector(".widget-link.badge-notification.unread-private-messages").title,10)),document.querySelector(".widget-link.badge-notification.unread-notifications")&&(b=parseInt(document.querySelector(".widget-link.badge-notification.unread-notifications").title,10)),updateBadge(a+b)}function updateBadge(a){document.title=a>=1?"("+a+") "+originalTitle:originalTitle}var originalTitle=document.title;setInterval(checkUnread,3e3);'
 		},
 		{
-			id: 'hangouts'
+			 id: 'hangouts'
 			,logo: 'hangouts.png'
 			,name: 'Hangouts'
 			,description: 'Hangouts bring conversations to life with photos, emoji, and even group video calls for free. Connect with friends across computers, Android, and Apple devices.'
@@ -75,6 +75,7 @@ Ext.define('Rambox.store.ServicesList', {
 			,js_unread: 'function checkUnread(){updateBadge(document.getElementById("hangout-landing-chat").lastChild.contentWindow.document.body.getElementsByClassName("ee").length)}function updateBadge(e){e>=1?rambox.setUnreadCount(e):rambox.clearUnreadCount()}setInterval(checkUnread,3000);'
 			//,js_unread: 'function checkUnread(){updateBadge(document.getElementById("hangout-landing-chat").lastChild.contentWindow.document.body.getElementsByClassName("ee").length)}function updateBadge(e){e>=1?document.title="("+e+") "+originalTitle:document.title=originalTitle}var originalTitle=document.title;setInterval(checkUnread,3000);'
 		},
+
 		{
 			id: 'tweetdeck'
 			,logo: 'tweetdeck.png'

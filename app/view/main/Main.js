@@ -47,17 +47,18 @@ Ext.define('Rambox.view.main.Main', {
 							,items: [
 								{
 									 xtype: 'checkbox'
-									,boxLabel: locale['app.main[1]']
+									,boxLabel: locale['app.main[1]'] // Mitglieder
 									,name: 'messaging'
 									,checked: true
 									,uncheckedValue: false
 									,inputValue: true
 								}
 								,{
-									 xtype: 'checkbox'
-									,boxLabel: locale['app.main[2]']
+									xtype: 'checkbox'
+									,boxLabel: 'Mitarbeiter'
+									,boxLabel: locale['app.main[2]'] // Mitarbeiter
 									,margin: '0 10 0 10'
-									,name: 'email'
+									,name: 'mitarbeiter'
 									,checked: true
 									,uncheckedValue: false
 									,inputValue: true
@@ -135,7 +136,7 @@ Ext.define('Rambox.view.main.Main', {
 							 xtype: 'button'
 							,glyph: 'xf1f8@FontAwesome'
 							,baseCls: ''
-							,tooltip: locale['app.main[10]']
+							,tooltip: locale['app.main[10]'] // 'Zurücksetzen'
 							,handler: 'removeAllServices'
 						}
 					]
@@ -300,16 +301,16 @@ Ext.define('Rambox.view.main.Main', {
 							}
 						]
 					}
-					,{
-						 text: locale['app.main[22]']
-						,icon: 'resources/auth0.png'
-						,id: 'loginBtn'
-						,tooltip: locale['app.main[23]']+'<br /><br /><i>'+locale['app.main[24]']+' Auth0 (http://auth0.com)</i>'
-						,bind: {
-							hidden: '{username}'
-						}
-						,handler: 'login'
-					}
+					// ,{
+					// 	 text: locale['app.main[22]']
+					// 	,icon: 'resources/auth0.png'
+					// 	,id: 'loginBtn'
+					// 	,tooltip: locale['app.main[23]']+'<br /><br /><i>'+locale['app.main[24]']+' Auth0 (http://auth0.com)</i>'
+					// 	,bind: {
+					// 		hidden: '{username}'
+					// 	}
+					// 	,handler: 'login'
+					// }
 					,{
 						 tooltip: locale['preferences[0]']
 						,glyph: 'xf013@FontAwesome'
@@ -318,54 +319,54 @@ Ext.define('Rambox.view.main.Main', {
 				]
 			}
 			,bbar: [
-				{
-					 xtype: 'segmentedbutton'
-					,allowToggle: false
-					,items: [
-						{
-							 text: '<b>Help us</b> with'
-							,pressed: true
-						}
-						,{
-							 text: locale['app.main[25]']
-							,glyph: 'xf21e@FontAwesome'
-							,handler: 'showDonate'
-						}
-						,{
-							 text: 'Translation'
-							,glyph: 'xf0ac@FontAwesome'
-							,href: 'https://crowdin.com/project/rambox/invite'
-						}
-					]
-				}
-				,'->'
-				,{
-					 xtype: 'label'
-					,html: '<span class="fa fa-code" style="color:black;"></span> '+locale['app.main[26]']+' <span class="fa fa-heart" style="color:red;"></span> '+locale['app.main[27]'].replace('Argentina', '<img src="resources/flag.png" alt="Argentina" data-qtip="Argentina" />')
-				}
-				,'->'
-				,{
-					xtype: 'segmentedbutton'
-					,allowToggle: false
-					,items: [
-						{
-							 text: '<b>Follow us</b>'
-							,pressed: true
-						}
-						,{
-							 glyph: 'xf082@FontAwesome'
-							,href: 'https://www.facebook.com/ramboxapp'
-						}
-						,{
-							 glyph: 'xf099@FontAwesome'
-							,href: 'https://www.twitter.com/ramboxapp'
-						}
-						,{
-							 glyph: 'xf09b@FontAwesome'
-							,href: 'https://www.github.com/saenzramiro/rambox'
-						}
-					]
-				}
+				// {
+				// 	 xtype: 'segmentedbutton'
+				// 	,allowToggle: false
+				// 	,items: [
+				// 		{
+				// 			 text: '<b>Help us</b> with'
+				// 			,pressed: true
+				// 		}
+				// 		,{
+				// 			 text: locale['app.main[25]']
+				// 			,glyph: 'xf21e@FontAwesome'
+				// 			,handler: 'showDonate'
+				// 		}
+				// 		,{
+				// 			 text: 'Translation'
+				// 			,glyph: 'xf0ac@FontAwesome'
+				// 			,href: 'https://crowdin.com/project/rambox/invite'
+				// 		}
+				// 	]
+				// }
+				// ,'->'
+				// ,{
+				// 	 xtype: 'label'
+				// 	,html: '<span class="fa fa-code" style="color:black;"></span> '+locale['app.main[26]']+' <span class="fa fa-heart" style="color:red;"></span> '+locale['app.main[27]'].replace('Argentina', '<img src="resources/flag.png" alt="Argentina" data-qtip="Argentina" />')
+				// }
+				// ,'->'
+				// ,{
+				// 	xtype: 'segmentedbutton'
+				// 	,allowToggle: false
+				// 	,items: [
+				// 		{
+				// 			 text: '<b>Follow us</b>'
+				// 			,pressed: true
+				// 		}
+				// 		,{
+				// 			 glyph: 'xf082@FontAwesome'
+				// 			,href: 'https://www.facebook.com/ramboxapp'
+				// 		}
+				// 		,{
+				// 			 glyph: 'xf099@FontAwesome'
+				// 			,href: 'https://www.twitter.com/ramboxapp'
+				// 		}
+				// 		,{
+				// 			 glyph: 'xf09b@FontAwesome'
+				// 			,href: 'https://www.github.com/saenzramiro/rambox'
+				// 		}
+				// 	]
+				// }
 			]
 		}
 		,{ id: 'tbfill', tabConfig : { xtype : 'tbfill' } }
