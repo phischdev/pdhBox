@@ -7,13 +7,16 @@
 	"private": true,
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/saenzramiro/rambox.git"
+		"url": "https://github.com/phischdev/pdhBox.git"
 	},
 	"bugs": {
 		"url": "https://github.com/saenzramiro/rambox/issues"
 	},
-	"homepage": "http://rambox.pro",
+	"homepage": "https://parteiderhumanisten.de/wp2/mitmachen/plattformen/",
 	"keywords": [
+	  	"Humanisten",
+	  	"pdhBox",
+	  	"HumanistenBox",
 		"Rambox",
 		"messaging",
 		"app",
@@ -35,5 +38,6 @@
 		"electron-is-dev": "^0.1.1",
 		"electron-config": "0.2.1",
 		"@exponent/electron-cookies": "2.0.0"
+		"electron-config": "0.2.1"
 	}
 }
