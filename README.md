@@ -9,25 +9,9 @@
 
 <h4 align="center">Free, Open Source and Cross Platform messaging and emailing app that combines common web applications into one.</h4>
 
-<p align="center">
-  <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WU75QWS7LH2CA" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-green.svg" alt="Donate with PayPal"></a>
-  <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank"><img src="https://img.shields.io/github/license/saenzramiro/rambox.svg" alt="GNU GPL v3"></a>
-  <a href="https://gitter.im/saenzramiro/rambox" target="_blank"><img src="https://badges.gitter.im/saenzramiro/rambox.svg" alt="Gitter"></a>
-  <a href="https://github.com/saenzramiro/rambox/releases/latest" target="_blank"><img src="https://img.shields.io/github/release/saenzramiro/rambox.svg" alt="Release"></a>
-  <a target="_blank" href="https://crowdin.com/project/rambox"><img src="https://d322cqt584bo4o.cloudfront.net/rambox/localized.svg"></a>
-</p>
-<p align="center">
-  <a href="https://travis-ci.org/saenzramiro/rambox" target="_blank"><img src="https://travis-ci.org/saenzramiro/rambox.svg?branch=master" alt="Travis CI"></a>
-  <a href="https://ci.appveyor.com/project/saenzramiro/rambox" target="_blank"><img src="https://ci.appveyor.com/api/projects/status/3kk9ixjgxwrh7yfy?svg=true" alt="AppVeyor CI"></a>
-  <a href="https://david-dm.org/saenzramiro/rambox" title="Dependency status"><img src="https://david-dm.org/saenzramiro/rambox.svg"/></a>
-  <a href="https://david-dm.org/saenzramiro/rambox#info=devDependencies" title="devDependency status"><img src="https://david-dm.org/saenzramiro/rambox/dev-status.svg"/></a>
-</p>
-
 <h5 align="center">Available for Windows, Mac and Linux.</h5>
 
-<h5 align="center"><a href="http://rambox.pro/#download" target="_blank"><img src="https://cdn.rawgit.com/saenzramiro/rambox/gh-pages/images/img-download.svg" width="250" alt="DOWNLOAD HERE"></a></h5>
-
-<h6 align="center">Logo designed by <a href="http://andyur.com/" target="_blank">Andriy Yurchenko</a></h6>
+<h5 align="center"><a href="https://diehumanisten.de" target="_blank"><img src="https://cdn.rawgit.com/saenzramiro/rambox/gh-pages/images/img-download.svg" width="250" alt="DOWNLOAD HERE"></a></h5>
 
 ----------
 
@@ -36,7 +20,7 @@
 ![Rambox](https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/screenshots/mac.png)
 
 
-## Services available - 90
+## Services available - 84
 
 <img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/whatsapp.png" alt="WhatsApp" title="WhatsApp">
 <img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/messenger.png" alt="Messenger" title="Messenger">
@@ -110,6 +94,7 @@
 <img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/spark.png" alt="Cisco Spark" title="Cisco Spark">
 <img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/fleep.png" alt="Fleep" title="Fleep">
 <img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/socialcast.png" alt="Socialcast" title="Socialcast">
+<img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/actor.png" alt="Actor" title="Actor">
 <img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/riot.png" alt="Riot" title="Riot">
 <img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/pushbullet.png" alt="Pushbullet" title="Pushbullet">
 <img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/movim.png" alt="Movim" title="Movim">
@@ -126,56 +111,9 @@
 <img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/hibox.png" alt="Hibox" title="Hibox">
 <img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/jandi.png" alt="Jandi" title="Jandi">
 <img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/threema.png" alt="Threema" title="Threema">
-<img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/messengerpages.png" alt="Messenger for Pages" title="Messenger for Pages">
-<img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/vk.png" alt="VK Messenger" title="VK Messenger">
-<img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/mastodon.png" alt="Mastodon" title="Mastodon">
-<img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/teamworkchat.png" alt="Teamwork Chat" title="Teamwork Chat">
-<img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/clocktweets.png" alt="ClockTweets" title="ClockTweets">
-<img width="80" align="left" src="https://raw.githubusercontent.com/saenzramiro/rambox/master/resources/icons/intercom.png" alt="Intercom" title="Intercom">
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-## Features
-
-- [x] Multi-language.
-- [x] Sync your configuration between multiple computers.
-- [x] Master Password.
-- [x] Lock Rambox if you will be away for a period of time.
-- [x] Don't disturb mode.
-- [x] Reorder applications in the tab bar.
-- [x] Notification badge in the tab.
-- [x] Minimize to tray.
-- [x] Mute audio to specific service.
-- [x] Separate tabs floating to the right.
-- [x] Disable a service instead of remove it.
-- [x] Start automatically on system startup.
-- [x] Custom Code Injection.
-- [x] Keyboard Shortcuts.
-- [x] Proxy.
-
-## Privacy
-
-No personal information will be saved
-
-Sessions will persist using the [partition:persist](http://electron.atom.io/docs/api/web-view-tag/#partition) attribute for Webviews. So every time you open Rambox, your sessions will keep alive until you remove the service.
-
-Sync feature use Auth0 for Single Sign On & Token Based Authentication and to store the services that user is using (and the configuration for each service). You are always welcome to check the code! ;)
-
-## Translations
-
-Help us translate Rambox on https://crowdin.com/project/rambox/invite.
-
-## [Install on Linux - Steps](https://github.com/saenzramiro/rambox/wiki/Install-on-Linux)
-
-## [To Do](https://github.com/saenzramiro/rambox/blob/master/TODO.md)
-
-## Getting Involved
-
-Want to report a bug, request a feature, contribute to or translate Rambox? We need all the help we can get! Fork and work!
-
-## Getting Started
-
-If you're comfortable getting up and running from a `git clone`, this method is for you.
 
 #### Technologies:
 
@@ -190,14 +128,6 @@ If you're comfortable getting up and running from a `git clone`, this method is 
 * NPM 3.8.7
 * Node.js 4.0.0
 
-#### Quickstart:
-
-1. `git clone https://github.com/saenzramiro/rambox.git`
-2. `npm install`
-3. Configure `env-sample.js` and rename it to `env.js`.
-4. `npm run sencha:compile`
-5. `npm start`
-
 #### Compile on Ubuntu:
 
 These instructions were tested with Ubuntu 17.04.
@@ -209,16 +139,5 @@ These instructions were tested with Ubuntu 17.04.
 6. Configure `env-sample.js` and rename it to `env.js`.
 7. Compile: `npm run sencha:compile`
 8. Start program: `npm start`
-
-
--------------------
-
-Disclosure
--------------------
-
-Rambox is not affiliated with any of the messaging apps offered.
-
-Licence
--------------------
 
 [GNU GPL v3](https://github.com/saenzramiro/rambox/LICENSE)
