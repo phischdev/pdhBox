@@ -15,41 +15,40 @@ function sendAction(action) {
 
 	win.webContents.send(action);
 }
-
 module.exports = function(config) {
 	const locale = require('../resources/languages/'+config.get('locale'));
 	const helpSubmenu = [
-		{
-			label: `&`+locale['menu.help[0]'],
-			click() {
-				shell.openExternal('http://rambox.pro');
-			}
-		},
-		{
-			label: `&Facebook`,
-			click() {
-				shell.openExternal('https://www.facebook.com/ramboxapp');
-			}
-		},
-		{
-			label: `&Twitter`,
-			click() {
-				shell.openExternal('https://www.twitter.com/ramboxapp');
-			}
-		},
-		{
-			label: `&GitHub`,
-			click() {
-				shell.openExternal('https://www.github.com/saenzramiro/rambox');
-			}
-		},
-		{
-			type: 'separator'
-		},
-		{
-			label: '&'+locale['menu.help[1]'],
-			click() {
-				const body = `
+		// {
+		// 	label: `&`+locale['menu.help[0]'],
+		// 	click() {
+		// 		shell.openExternal('http://rambox.pro');
+		// 	}
+		// },
+		// {
+		// 	label: `&Facebook`,
+		// 	click() {
+		// 		shell.openExternal('https://www.facebook.com/ramboxapp');
+		// 	}
+		// },
+		// {
+		// 	label: `&Twitter`,
+		// 	click() {
+		// 		shell.openExternal('https://www.twitter.com/ramboxapp');
+		// 	}
+		// },
+		// {
+		// 	label: `&GitHub`,
+		// 	click() {
+		// 		shell.openExternal('https://www.github.com/saenzramiro/rambox');
+		// 	}
+		// },
+		// {
+		// 	type: 'separator'
+		// },
+		// {
+		// 	label: '&'+locale['menu.help[1]'],
+		// 	click() {
+		// 		const body = `
 	<!-- Please describe here your issue and steps to reproduce it. -->
 
 
@@ -63,12 +62,12 @@ module.exports = function(config) {
 				shell.openExternal(`https://github.com/saenzramiro/rambox/issues/new?body=${encodeURIComponent(body)}`);
 			}
 		},
-		{
-			label: `&`+locale['menu.help[2]'],
-			click() {
-				shell.openExternal('https://gitter.im/saenzramiro/rambox');
-			}
-		},
+		// {
+		// 	label: `&`+locale['menu.help[2]'],
+		// 	click() {
+		// 		shell.openExternal('https://gitter.im/saenzramiro/rambox');
+		// 	}
+		// },
 		{
 			label: `&Tools`,
 			submenu: [
@@ -92,15 +91,15 @@ module.exports = function(config) {
 				}
 			]
 		},
-		{
-			type: 'separator'
-		},
-		{
-			label: `&`+locale['menu.help[3]'],
-			click() {
-				shell.openExternal('https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WU75QWS7LH2CA');
-			}
-		}
+		// {
+		// 	type: 'separator'
+		// },
+		// {
+		// 	label: `&`+locale['menu.help[3]'],
+		// 	click() {
+		// 		shell.openExternal('https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WU75QWS7LH2CA');
+		// 	}
+		// }
 	];
 
 	let tpl = [

@@ -207,6 +207,23 @@ Ext.define('Rambox.Application', {
 						"js_unread": "",
 						"zoomLevel": 0,
 						"id": 9
+					},
+					{
+						"position": 11,
+						"type": "custom",
+						"logo": "",
+						"name": "KIX",
+						"url": "https://kix.diehumanisten.de",
+						"align": "right",
+						"notifications": true,
+						"muted": false,
+						"displayTabUnreadCounter": true,
+						"includeInGlobalUnreadCounter": true,
+						"trust": true,
+						"enabled": false,
+						"js_unread": "",
+						"zoomLevel": 0,
+						"id": 13
 					}
 				];
 
@@ -253,7 +270,7 @@ Ext.define('Rambox.Application', {
 		//Rambox.ux.Auth0.init();
 
 		// EXPORT DEFUALT SERVICES
-
+		// this.exportDefaultServices();
 		this.defaultServices();
 
 		//TestForEmptyServices();
