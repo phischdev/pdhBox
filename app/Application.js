@@ -91,8 +91,8 @@ Ext.define('Rambox.Application', {
 					},
 					{
 						"position": 4,
-						"type": "custom",
-						"logo": "",
+						"type": "discourse",
+						"logo": "discourse.png",
 						"name": "Disk",
 						"url": "https://disk.diehumanisten.de",
 						"align": "left",
@@ -104,8 +104,9 @@ Ext.define('Rambox.Application', {
 						"enabled": true,
 						"js_unread": "",
 						"zoomLevel": 0,
-						"id": 2
+						"id": 16
 					},
+
 					{
 						"position": 5,
 						"type": "custom",
@@ -270,7 +271,7 @@ Ext.define('Rambox.Application', {
 		//Rambox.ux.Auth0.init();
 
 		// EXPORT DEFUALT SERVICES
-		// this.exportDefaultServices();
+		this.exportDefaultServices();
 		this.defaultServices();
 
 		//TestForEmptyServices();
