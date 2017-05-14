@@ -127,5 +127,5 @@ Ext.define('Rambox.store.ServicesList', {
 			,url: 'https://hootsuite.com/dashboard'
 			,type: 'mitarbeiter'
 		}
-	]
+  	]
 });
