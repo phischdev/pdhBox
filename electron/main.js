@@ -162,6 +162,7 @@ function createWindow () {
 	if ( fs.existsSync(path.resolve(path.dirname(process.execPath), '..', 'Update.exe')) && process.argv.indexOf('--without-update') === -1 ) updater.initialize(mainWindow);
 
 	// Open links in default browser
+	//TODO: link services
 	mainWindow.webContents.on('new-window', function(e, url, frameName, disposition, options) {
 		const protocol = require('url').parse(url).protocol;
 		switch ( disposition ) {
@@ -184,6 +185,7 @@ function createWindow () {
 	});
 
 	mainWindow.webContents.on('will-navigate', function(event, url) {
+		console.log("SAME_WINDOW: ", url, frameName, disposition, options);
 		event.preventDefault();
 	});
 

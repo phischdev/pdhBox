@@ -138,6 +138,7 @@ Ext.define('Rambox.view.main.Main', {
 							,baseCls: ''
 							,tooltip: locale['app.main[10]'] // 'Zurücksetzen'
 							,handler: 'removeAllServices'
+							,title: 'Zurücksetzen'
 						}
 					]
 					,columns: [
