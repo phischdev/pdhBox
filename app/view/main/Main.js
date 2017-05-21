@@ -55,7 +55,6 @@ Ext.define('Rambox.view.main.Main', {
 								}
 								,{
 									xtype: 'checkbox'
-									,boxLabel: 'Mitarbeiter'
 									,boxLabel: locale['app.main[2]'] // Mitarbeiter
 									,margin: '0 10 0 10'
 									,name: 'mitarbeiter'
@@ -138,7 +137,7 @@ Ext.define('Rambox.view.main.Main', {
 							,baseCls: ''
 							,tooltip: locale['app.main[10]'] // 'Zurücksetzen'
 							,handler: 'removeAllServices'
-							,title: 'Zurücksetzen'
+							,title: 'Alles zurücksetzen'
 						}
 					]
 					,columns: [
@@ -192,6 +191,7 @@ Ext.define('Rambox.view.main.Main', {
 								,{
 									 glyph: 0xf1f8
 									,tooltip: locale['app.main[14]']
+									,isDisabled: function(view, rowIndex, colIndex, item, record) { return !record.get('removable')}
 									,handler: 'removeService'
 									,getClass: function(){ return 'x-hidden-display'; }
 								}

@@ -34,7 +34,7 @@ Ext.define('Rambox.store.ServicesList', {
 			logo: 'wiki.png'			,
 			name: 'WikiMedia'			,
 			url: 'http://___/wiki',
-			type: 'mitglieder'
+			type: 'mitglieder',
 		},
 		{
 			 id: 'slack'

@@ -232,8 +232,8 @@ Ext.define('Rambox.view.main.MainController', {
 		// If this method is called from Lock method, prevent showing toast
 		if ( !e ) return;
 		Ext.toast({
-			 html: btn.pressed ? 'ENABLED' : 'DISABLED'
-			,title: 'Don\'t Disturb'
+			 html: btn.pressed ? 'An' : 'Aus'
+			,title: 'Nicht stören'
 			,width: 200
 			,align: 't'
 			,closable: false

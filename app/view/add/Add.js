@@ -26,6 +26,9 @@ Ext.define('Rambox.view.add.Add',{
 
 	,initComponent: function() {
 		var me = this;
+		const removable = !me.record.get('removable');
+
+		console.log("NOT REMOVABLE: ", removable);
 
 		me.title = (!me.edit ? locale['app.window[0]'] : locale['app.window[1]']) + ' ' + me.record.get('name');
 		me.icon = me.record.get('type') === 'custom' ? (!me.edit ? 'resources/icons/custom.png' : (me.record.get('logo') === '' ? 'resources/icons/custom.png' : me.record.get('logo'))) : 'resources/icons/'+me.record.get('logo');
@@ -41,6 +44,7 @@ Ext.define('Rambox.view.add.Add',{
 						,name: 'serviceName'
 						,allowBlank: true
 						,listeners: { specialkey: 'onEnter' }
+						,disabled: removable
 					}
 					,{
 						 xtype: 'container'
@@ -68,6 +72,7 @@ Ext.define('Rambox.view.add.Add',{
 								,emptyText: me.record.get('url') === '___' ? 'http://' : ''
 								,vtype: me.record.get('url') === '___' ? 'url' : ''
 								,listeners: { specialkey: 'onEnter' }
+								,disabled: removable
 								,flex: 1
 							}
 							,{
@@ -90,7 +95,8 @@ Ext.define('Rambox.view.add.Add',{
 											,disabled: me.edit ? !me.service.get('custom_domain') : !me.record.get('custom_domain')
 										}
 									]
-								}
+								,disabled: removable
+							}
 								// Fixes bug EXTJS-20094 for version Ext JS 5
 								,arrowHandler: function(cycleBtn, e) {
 									if ( !cycleBtn.arrowVisible ) cycleBtn.hideMenu();
@@ -120,7 +126,9 @@ Ext.define('Rambox.view.add.Add',{
 							,{
 								 xtype: 'hiddenfield'
 								,name: 'cycleValue'
-								,value: me.edit ? (me.service.get('custom_domain') && me.service.get('url') === me.record.get('url') ? 1 : (!Ext.String.endsWith(me.record.get('url'), me.service.get('url').split('___')[1]) ? 2 : 1)) : 1
+								,disabled: removable
+
+							,value: me.edit ? (me.service.get('custom_domain') && me.service.get('url') === me.record.get('url') ? 1 : (!Ext.String.endsWith(me.record.get('url'), me.service.get('url').split('___')[1]) ? 2 : 1)) : 1
 							}
 						]
 					}
@@ -136,10 +144,11 @@ Ext.define('Rambox.view.add.Add',{
 						,labelWidth: 40
 						,margin: '5 0 0 0'
 						,listeners: { specialkey: 'onEnter' }
-					}
+						,disabled: removable
+	}
 					,{
 						 xtype: 'fieldset'
-						,title: locale['app.window[3]']
+						,title: locale['app.window[3]'] // 'Einstellungen'
 						,margin: '10 0 0 0'
 						,items: [
 							{
@@ -153,6 +162,7 @@ Ext.define('Rambox.view.add.Add',{
 										,name: 'align'
 										,uncheckedValue: 'left'
 										,inputValue: 'right'
+										,disabled: removable
 									}
 									,{
 										 xtype: 'checkbox'
@@ -243,6 +253,7 @@ Ext.define('Rambox.view.add.Add',{
 								,value: me.edit ? me.record.get('js_unread') : ''
 								,anchor: '100%'
 								,height: 120
+								,disabled: function(view, rowIndex, colIndex, item, record) {return !record.get('editable');	}
 							}
 						]
 					}
