@@ -125,7 +125,7 @@ let isQuitting = false;
 function createWindow () {
 	// Create the browser window using the state information
 	mainWindow = new BrowserWindow({
-		 title: 'HumanistenBox'
+		 title: 'TESTNAME'
 		,icon: __dirname + '/../resources/Icon.ico'
 		,backgroundColor: '#FFF'
 		,x: config.get('x')
@@ -164,6 +164,8 @@ function createWindow () {
 	// Open links in default browser
 	//TODO: link services
 	mainWindow.webContents.on('new-window', function(e, url, frameName, disposition, options) {
+		console.log("Link clicked");
+		if ( disposition !== 'foreground-tab' ) return;
 		const protocol = require('url').parse(url).protocol;
 		switch ( disposition ) {
 			case 'new-window':

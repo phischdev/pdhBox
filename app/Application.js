@@ -164,6 +164,24 @@ Ext.define('Rambox.Application', {
 					},
 					{
 						"position": 8,
+						"type": "wordpress",
+						"logo": "wordpress.png",
+						"name": "WordPress",
+						"url": "https://parteiderhumanisten.de/wp2/wp-admin",
+						"align": "right",
+						"notifications": true,
+						"muted": false,
+						"displayTabUnreadCounter": true,
+						"includeInGlobalUnreadCounter": true,
+						"trust": true,
+						"enabled": true,
+						"js_unread": "",
+						"zoomLevel": 0,
+						"removable": true,
+						"id": 23
+					},
+					{
+						"position": 9,
 						"type": "hangouts",
 						"logo": "hangouts.png",
 						"name": "Hangouts",
@@ -180,7 +198,7 @@ Ext.define('Rambox.Application', {
 						"id": 4
 					},
 					{
-						"position": 9,
+						"position": 10,
 						"type": "tweetdeck",
 						"logo": "tweetdeck.png",
 						"name": "Twitter",
@@ -197,7 +215,7 @@ Ext.define('Rambox.Application', {
 						"id": 5
 					},
 					{
-						"position": 10,
+						"position": 11,
 						"type": "custom",
 						"logo": "",
 						"name": "Facebook Manager",
@@ -214,7 +232,7 @@ Ext.define('Rambox.Application', {
 						"id": 9
 					},
 					{
-						"position": 11,
+						"position": 12,
 						"type": "custom",
 						"logo": "",
 						"name": "KIX",
