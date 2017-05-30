@@ -89,19 +89,19 @@ Ext.define('Rambox.ux.WebView',{
 						}
 						,'-'
 						,{
-							 text: 'Zoom In'
+							 text: 'Reinzoomen'
 							,glyph: 'xf00e@FontAwesome'
 							,scope: me
 							,handler: me.zoomIn
 						}
 						,{
-							 text: 'Zoom Out'
+							 text: 'Rauszoomen'
 							,glyph: 'xf010@FontAwesome'
 							,scope: me
 							,handler: me.zoomOut
 						}
 						,{
-							 text: 'Reset Zoom'
+							 text: 'Zoom zurücksetzen'
 							,glyph: 'xf002@FontAwesome'
 							,scope: me
 							,handler: me.resetZoom
@@ -257,32 +257,32 @@ Ext.define('Rambox.ux.WebView',{
 				case 'discourse':
 					console.log("from DISK");
 					if (e.url.indexOf('auth/facebook?display=popup') > 0) {
-						console.log("facebookauth");
-						me.add({
-							xtype: 'window'
-							, title: 'Anmelden mit Facebook'
-							, width: '80%'
-							, height: '80%'
-							, maximizable: true
-							, modal: true
-							, items: {
-								xtype: 'component'
-								, hideMode: 'offsets'
-								, autoRender: true
-								, autoShow: true
-								, autoEl: {
-									tag: 'webview'
-									,
-									src: e.url
-									,
-									style: 'width:100%;height:100%;'
-									//,partition: 'persist:' + me.record.get('type') + '_' + me.id.replace('tab_', '') + (localStorage.getItem('id_token') ? '_' + Ext.decode(localStorage.getItem('profile')).user_id : '')
-									,
-									useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
-								}
-							}
-						}).show();
-						e.preventDefault();
+						// console.log("facebookauth");
+						// me.add({
+						// 	xtype: 'window'
+						// 	, title: 'Anmelden mit Facebook'
+						// 	, width: '80%'
+						// 	, height: '80%'
+						// 	, maximizable: true
+						// 	, modal: true
+						// 	, items: {
+						// 		xtype: 'component'
+						// 		, hideMode: 'offsets'
+						// 		, autoRender: true
+						// 		, autoShow: true
+						// 		, autoEl: {
+						// 			tag: 'webview'
+						// 			,
+						// 			src: e.url
+						// 			,
+						// 			style: 'width:100%;height:100%;'
+						// 			//,partition: 'persist:' + me.record.get('type') + '_' + me.id.replace('tab_', '') + (localStorage.getItem('id_token') ? '_' + Ext.decode(localStorage.getItem('profile')).user_id : '')
+						// 			,
+						// 			useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
+						// 		}
+						// 	}
+						// }).show();
+						// e.preventDefault();
 						return;
 					}
 				case 'skype':
@@ -362,8 +362,10 @@ Ext.define('Rambox.ux.WebView',{
 					}
 					break;
 				case 'wordpress':
-					console.log("WP");
-					return;
+					// Link to our site
+					if (e.url.indexOf('://parteiderhumanisten.de/') || e.url.indexOf('://diehumanisten.de/') > 0)
+						if (e.url.indexOf('?preview=true' > 0))
+							console.log("WP Preview");
 				default:
 					break;
 			}
@@ -411,10 +413,25 @@ Ext.define('Rambox.ux.WebView',{
 					selectType = "wiki";
 				else if (e.url.match('https?:\/\/trello.com\/'))
 					selectType = "trello";
+				else if (e.url.match('https?:\/\/hangouts.google.com\/call\/'))
+					selectType = "hangouts_call";
+				else if (e.url.match('https?:\/\/hangouts.google.com\/'))
+					selectType = "hangouts";
+
+				// Special case Hangouts
+				if (selectType == "hangouts_call")
+				{
+					// open new window
+					console.log("opening new google hangouts window in default browser");
+					// console.log(e);
+					e.preventDefault();
+					require('electron').shell.openExternal(e.url);
+					return;
+				}
 
 				//console.log(me.record.get('type'), selectType);
 
-				if (me.record.get('type') !== selectType) {
+				if (selectType !== undefined && me.record.get('type') !== selectType) {
 
 					const tabPanel = Ext.cq1('app-main');
 					var tabs = tabPanel.items.items;
@@ -424,8 +441,8 @@ Ext.define('Rambox.ux.WebView',{
 						if (tab.id === "ramboxTab") return false;
 						if (tab.record && tab.record.data) {
 							const type = tab.record.data['type'];
-							//console.log("record:", type);
-							return (type === selectType);
+
+							return (type === selectType && true);
 						}
 						return false;
 					});
@@ -433,13 +450,17 @@ Ext.define('Rambox.ux.WebView',{
 					// Tab exists
 					if (tab.length > 0) {
 						tab = tab[0];
-
-						const web = tab.down("component").el.dom;
-						web.loadURL(e.url);
+						const enabled = tab.record.data["enabled"];
+						//console.log(tab);
+						//console.log("enabled", enabled);
+						if (enabled) {
+							const web = tab.down("component").el.dom;
+							web.loadURL(e.url);
+						}
 
 						// Select Tab
-						var index = tabPanel.items.indexOf(tab);
-						console.log("index", index);
+						// var index = tabPanel.items.indexOf(tab);
+						// console.log("index", index);
 						tabPanel.setActiveTab(tab);
 
 						// Stop from opening
