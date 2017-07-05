@@ -173,6 +173,7 @@ Ext.define('Rambox.ux.WebView',{
 					,partition: 'persist:' + me.record.get('type') + '_' + me.id.replace('tab_', '') + (localStorage.getItem('id_token') ? '_' + Ext.decode(localStorage.getItem('profile')).user_id : '')
 					,plugins: 'true'
 					,allowtransparency: 'on'
+					,allowpopups: true
 					,autosize: 'on'
 					//,webpreferences: 'nodeIntegration=no'
 					//,disablewebsecurity: 'on' // Disabled because some services (Like Google Drive) dont work with this enabled
@@ -180,8 +181,9 @@ Ext.define('Rambox.ux.WebView',{
 					,preload: './resources/js/rambox-service-api.js'
 				}
 			}];
-
-			if ( Ext.getStore('ServicesList').getById(me.record.get('type')).get('allow_popups') ) cfg[0].autoEl.allowpopups = 'on';
+			const allowPopups = Ext.getStore('ServicesList').getById(me.record.get('type')).get('allow_popups');
+			//if ( allowPopups ) cfg[0].autoEl.allowpopups = 'on';
+			console.log(me.record.get('name'), allowPopups)
 		}
 
 		return cfg;
@@ -205,20 +207,20 @@ Ext.define('Rambox.ux.WebView',{
 					 xtype: 'tbtext'
 					,itemId: 'url'
 				}
-				,{
-					 xtype: 'button'
-					,glyph: 'xf00d@FontAwesome'
-					,scale: 'small'
-					,ui: 'decline'
-					,padding: 0
-					,scope: me
-					,hidden: floating
-					,handler: me.closeStatusBar
-					,tooltip: {
-						 text: 'Close statusbar until next time'
-						,mouseOffset: [0,-60]
-					}
-				}
+				// ,{
+				// 	 xtype: 'button'
+				// 	,glyph: 'xf00d@FontAwesome'
+				// 	,scale: 'small'
+				// 	,ui: 'decline'
+				// 	,padding: 0
+				// 	,scope: me
+				// 	,hidden: floating
+				// 	,handler: me.closeStatusBar
+				// 	,tooltip: {
+				// 		 text: 'Close statusbar until next time'
+				// 		,mouseOffset: [0,-60]
+				// 	}
+				// }
 			]
 		};
 	}
@@ -239,6 +241,7 @@ Ext.define('Rambox.ux.WebView',{
 			if ( !me.down('statusbar').closed || !me.down('statusbar').keep ) me.down('statusbar').show();
 			me.down('statusbar').showBusy();
 		});
+
 		webview.addEventListener("did-stop-loading", function() {
 			me.down('statusbar').clearStatus({useDefaults: true});
 			if ( !me.down('statusbar').keep ) me.down('statusbar').hide();
@@ -303,25 +306,29 @@ Ext.define('Rambox.ux.WebView',{
 						return;
 					} else if (e.url.indexOf('https://hangouts.google.com/hangouts/_/CONVERSATION/') >= 0) {
 						me.add({
-							 xtype: 'window'
-							,title: 'Video Call'
-							,width: '80%'
-							,height: '80%'
-							,maximizable: true
-							,resizable: true
-							,draggable: true
-							,collapsible: true
-							,items: {
-								 xtype: 'component'
-								,hideMode: 'offsets'
-								,autoRender: true
-								,autoShow: true
-								,autoEl: {
-									 tag: 'webview'
-									,src: e.url
-									,style: 'width:100%;height:100%;'
-									,partition: 'persist:' + me.record.get('type') + '_' + me.id.replace('tab_', '') + (localStorage.getItem('id_token') ? '_' + Ext.decode(localStorage.getItem('profile')).user_id : '')
-									,useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
+							xtype: 'window'
+							, title: 'Video Call'
+							, width: '80%'
+							, height: '80%'
+							, maximizable: true
+							, resizable: true
+							, draggable: true
+							, collapsible: true
+							, items: {
+								xtype: 'component'
+								, hideMode: 'offsets'
+								, autoRender: true
+								, autoShow: true
+								, autoEl: {
+									tag: 'webview'
+									,
+									src: e.url
+									,
+									style: 'width:100%;height:100%;'
+									,
+									partition: 'persist:' + me.record.get('type') + '_' + me.id.replace('tab_', '') + (localStorage.getItem('id_token') ? '_' + Ext.decode(localStorage.getItem('profile')).user_id : '')
+									,
+									useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
 								}
 							}
 						}).show();
@@ -331,28 +338,33 @@ Ext.define('Rambox.ux.WebView',{
 				case 'slack':
 					if (e.url.indexOf('slack.com/call/') >= 0) {
 						me.add({
-							 xtype: 'window'
-							,title: e.options.title
-							,width: e.options.width
-							,height: e.options.height
-							,maximizable: true
-							,resizable: true
-							,draggable: true
-							,collapsible: true
-							,items: {
-								 xtype: 'component'
-								,hideMode: 'offsets'
-								,autoRender: true
-								,autoShow: true
-								,autoEl: {
-									 tag: 'webview'
-									,src: e.url
-									,style: 'width:100%;height:100%;'
-									,partition: e.options.webPreferences.partition
-									,useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
+							xtype: 'window'
+							, title: e.options.title
+							, width: e.options.width
+							, height: e.options.height
+							, maximizable: true
+							, resizable: true
+							, draggable: true
+							, collapsible: true
+							, items: {
+								xtype: 'component'
+								, hideMode: 'offsets'
+								, autoRender: true
+								, autoShow: true
+								, autoEl: {
+									tag: 'webview'
+									,
+									src: e.url
+									,
+									style: 'width:100%;height:100%;'
+									,
+									partition: e.options.webPreferences.partition
+									,
+									useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
 								}
 							}
 						}).show();
+						console.log("prevent");
 						e.preventDefault();
 						return;
 					} else if (e.url.indexOf('slack-redir.net/') >= 0) {
@@ -363,44 +375,48 @@ Ext.define('Rambox.ux.WebView',{
 					break;
 				case 'wordpress':
 					// Link to our site
-					if (e.url.indexOf('://parteiderhumanisten.de/') || e.url.indexOf('://diehumanisten.de/') > 0)
-						if (e.url.indexOf('?preview=true' > 0))
+					if (e.url.indexOf('://parteiderhumanisten.de/wp2/') || e.url.indexOf('://diehumanisten.de/') > 0) {
+						if (e.url.indexOf('?preview=true' > 0)) {
 							console.log("WP Preview");
+							return;
+
+						}
+					}
 				default:
 					break;
 			}
-			// if (e.url.match('https?:\/\/files.slack.com\/')) {
-			// 	me.add({
-			// 		xtype: 'window'
-			// 		, title: e.options.title
-			// 		, width: e.options.width
-			// 		, height: e.options.height
-			// 		, maximizable: true
-			// 		, modal: true
-			// 		, items: {
-			// 			xtype: 'component'
-			// 			, hideMode: 'offsets'
-			// 			, autoRender: true
-			// 			, autoShow: true
-			// 			, autoEl: {
-			// 				tag: 'webview'
-			// 				,
-			// 				src: e.url
-			// 				,
-			// 				style: 'width:100%;height:100%;'
-			// 				,partition: e.options.webPreferences.partition
-			// 				,
-			// 				useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
-			// 			}
-			// 		}
-			// 	}).show();
-			// 	e.preventDefault();
-			// 	return;
-			// };
+			if (e.url.match('https?:\/\/files.slack.com\/')) {
+				me.add({
+					xtype: 'window'
+					, title: e.options.title
+					, width: e.options.width
+					, height: e.options.height
+					, maximizable: true
+					, modal: true
+					, items: {
+						xtype: 'component'
+						, hideMode: 'offsets'
+						, autoRender: true
+						, autoShow: true
+						, autoEl: {
+							tag: 'webview'
+							,
+							src: e.url
+							,
+							style: 'width:100%;height:100%;'
+							,partition: e.options.webPreferences.partition
+							,
+							useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
+						}
+					}
+				}).show();
+				e.preventDefault();
+				return;
+			};
 
 			const protocol = require('url').parse(e.url).protocol;
 			if (protocol === 'http:' || protocol === 'https:') {
-				//console.log("EXTERN", e);
+				console.log("EXTERN", e);
 
 				var selectType = undefined;
 				if (e.url.match('https?:\/\/(www)?(m)?.facebook.com\/'))
@@ -424,8 +440,9 @@ Ext.define('Rambox.ux.WebView',{
 					// open new window
 					console.log("opening new google hangouts window in default browser");
 					// console.log(e);
-					e.preventDefault();
-					require('electron').shell.openExternal(e.url);
+					//e.preventDefault();
+					//require('electron').shell.openExternal(e.url);
+
 					return;
 				}
 
@@ -454,6 +471,8 @@ Ext.define('Rambox.ux.WebView',{
 						//console.log(tab);
 						//console.log("enabled", enabled);
 						if (enabled) {
+							//TODO: check if not already there
+							//TODO: check if not standard link
 							const web = tab.down("component").el.dom;
 							web.loadURL(e.url);
 						}
@@ -476,6 +495,16 @@ Ext.define('Rambox.ux.WebView',{
 		});
 
 		webview.addEventListener('will-navigate', function(e, url) {
+			console.log("wants to navigate");
+			switch (me.type) {
+				case "wiki":
+					if (url.match('https?:\/\/wiki.diehumanisten.de\/')) {
+						// Allow
+						return;
+					}
+			}
+
+			console.log("preventing naviagtion");
 			e.preventDefault();
 		});
 

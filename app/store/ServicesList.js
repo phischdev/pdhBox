@@ -27,32 +27,36 @@ Ext.define('Rambox.store.ServicesList', {
 			name: 'Trello'			,
 			description: 'Infinitely flexible. Incredibly easy to use. Great mobile apps. It\'s free. Trello keeps track of everything, from the big picture to the minute details.',
 			url: 'https://trello.com/login',
-			type: 'mitglieder'
+			type: 'mitglieder',
+			editable: false
 		},
 		{
 			id: 'wiki',
 			logo: 'wiki.png'			,
-			name: 'WikiMedia'			,
-			url: 'http://___/wiki',
-			type: 'mitglieder'
+			name: 'Wiki'			,
+			url: 'https://diehumanisten.de/wiki',
+			type: 'mitglieder',
+			editable: false
 		},
 		{
 			 id: 'slack'
 			,logo: 'slack.png'
 			,name: 'Slack'
+			,editable: false
 			,description: 'Slack brings all your communication together in one place. It’s real-time messaging, archiving and search for modern teams.'
-			,url: 'https://___.slack.com/'
+			,url: 'https://pgs-diehumanisten.slack.com/'
 			,type: 'mitglieder'
+			,allow_popus: true
 			,js_unread: 'function checkUnread(){var a=0,b=0;$(".unread_msgs").each(function(){a+=isNaN(parseInt($(this).html())) ? 0 : parseInt($(this).html())}),$(".unread_highlights").each(function(){b+=isNaN(parseInt($(this).html())) ? 0 : parseInt($(this).html())}),updateBadge(a,b)}function updateBadge(a,b){var c=b>0?"("+b+") ":a>0?"(•) ":"";document.title=c+originalTitle}var originalTitle=document.title;setInterval(checkUnread,3000);'
 		},
 		{
 			id: 'discourse'
+			,editable: false
 			,logo: 'discourse.png'
-			,name: 'Discourse'
+			,name: 'Disk'
 			,type: 'mitglieder'
-			,custom_domain: true
 			,allow_popups: true
-			,url: "https://___"
+			,url: "https://disk.diehumanisten.de/"
 			,js_unread: 'function checkUnread(){var a=0,b=0;document.querySelector(".widget-link.badge-notification.unread-private-messages")&&(a=parseInt(document.querySelector(".widget-link.badge-notification.unread-private-messages").title,10)),document.querySelector(".widget-link.badge-notification.unread-notifications")&&(b=parseInt(document.querySelector(".widget-link.badge-notification.unread-notifications").title,10)),updateBadge(a+b)}function updateBadge(a){document.title=a>=1?"("+a+") "+originalTitle:originalTitle}var originalTitle=document.title;setInterval(checkUnread,3e3);'
 		},
 		{
@@ -60,8 +64,17 @@ Ext.define('Rambox.store.ServicesList', {
 			,logo: 'facebook.png'
 			,name: 'Facebook'
 			,type: 'mitglieder'
-			,url: "https://www.facebook.com/___"
-			//,js_unread: 'function checkUnread(){var a=0,b=0;document.querySelector(".widget-link.badge-notification.unread-private-messages")&&(a=parseInt(document.querySelector(".widget-link.badge-notification.unread-private-messages").title,10)),document.querySelector(".widget-link.badge-notification.unread-notifications")&&(b=parseInt(document.querySelector(".widget-link.badge-notification.unread-notifications").title,10)),updateBadge(a+b)}function updateBadge(a){document.title=a>=1?"("+a+") "+originalTitle:originalTitle}var originalTitle=document.title;setInterval(checkUnread,3e3);'
+			,url: "https://www.facebook.com/parteiderhumanisten"
+			,editable: false
+		},
+		{
+			id: 'gdrive'
+			,logo: 'gdrive.png'
+			,name: 'Google Drive'
+			,type: 'mitarbeiter'
+			,url: "https://drive.google.com/drive/folders/0B3P74ADGKe_URWdPbEV0V05DU2c"
+			,editable: false
+			,align: 'right'
 		},
 		{
 			 id: 'hangouts'
@@ -98,7 +111,7 @@ Ext.define('Rambox.store.ServicesList', {
 			,logo: 'wordpress.png'
 			,name: 'WordPress'
 			,description: 'Add a custom service if is not listed above.'
-			,url: '___/wp-admin'
+			,url: 'https://parteiderhumanisten.de/wp2/wp-admin'
 			,type: 'mitarbeiter'
 			,allow_popups: true
 		},
@@ -107,15 +120,17 @@ Ext.define('Rambox.store.ServicesList', {
 			,logo: 'custom.png'
 			,name: 'Infos'
 			,description: 'Infoseite zu unseren Plattformen'
-			,url: '___'
+			,url: 'https://diehumanisten.de/'
 			,type: 'mitglied'
+			,editable: false
 		},
 		{
 			id: 'roundcube'
 			,logo: 'roundcube.png'
 			,name: 'Webmail'
 			,description: 'Free and open source webmail software for the masses, written in PHP.'
-			,url: '___'
+			,url: 'https://webmail.df.eu/roundcube/'
+			,editable: false
 			,type: 'mitarbeiter'
 			,js_unread: 'Element.prototype.remove=function(){this.parentElement.removeChild(this)},NodeList.prototype.remove=HTMLCollection.prototype.remove=function(){for(var e=this.length-1;e>=0;e--)this[e]&&this[e].parentElement&&this[e].parentElement.removeChild(this[e])},document.getElementsByClassName("owa-banner").remove(),document.getElementsByTagName("footer").remove(),document.getElementsByTagName("aside").remove(),document.getElementsByTagName("h1").remove();'
 		},

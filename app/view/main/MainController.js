@@ -82,7 +82,7 @@ Ext.define('Rambox.view.main.MainController', {
 		});
 	}
 
-	,removeServiceFn: function(serviceId) {
+	,removeServiceFn: function(serviceId, preserve) {
 		if ( !serviceId ) return false;
 
 		// Get Tab
@@ -91,7 +91,7 @@ Ext.define('Rambox.view.main.MainController', {
 		var rec = Ext.getStore('Services').getById(serviceId);
 
 		// Clear all trash data
-		if ( rec.get('enabled') && tab.down('component').el ) {
+		if (!preserve && rec.get('enabled') && tab.down('component').el ) {
 			tab.down('component').el.dom.getWebContents().session.clearCache(Ext.emptyFn);
 			tab.down('component').el.dom.getWebContents().session.clearStorageData({}, Ext.emptyFn);
 		}
@@ -107,7 +107,7 @@ Ext.define('Rambox.view.main.MainController', {
 		var me = this;
 
 		Ext.Msg.confirm(locale['app.window[12]'], locale['app.window[13]']+' <b>'+rec.get('name')+'</b>?', function(btnId) {
-			if ( btnId === 'yes' ) me.removeServiceFn(rec.get('id'));
+			if ( btnId === 'yes' ) me.removeServiceFn(rec.get('id'), false);
 		});
 	}
 
@@ -135,6 +135,37 @@ Ext.define('Rambox.view.main.MainController', {
 			Ext.getStore('Services').load();
 			Ext.Array.each(Ext.getStore('Services').collect('id'), function(serviceId) {
 				me.removeServiceFn(serviceId);
+			});
+			if ( Ext.isFunction(callback) ) callback();
+			Ext.cq1('app-main').resumeEvent('remove');
+			document.title = 'HumanistenBox';
+		}
+	}
+
+	,replaceAllServices: function(btn, callback) {
+		var me = this;
+
+		// Clear counter for unread messaging
+		document.title = 'HumanistenBox';
+
+		if ( btn ) {
+			Ext.Msg.confirm(locale['app.window[12]'], locale['app.window[14]'], function(btnId) {
+				if ( btnId === 'yes' ) {
+					Ext.cq1('app-main').suspendEvent('remove');
+					Ext.getStore('Services').load();
+					Ext.Array.each(Ext.getStore('Services').collect('id'), function(serviceId) {
+						me.removeServiceFn(serviceId, true);
+					});
+					if ( Ext.isFunction(callback) ) callback();
+					Ext.cq1('app-main').resumeEvent('remove');
+					document.title = 'HumanistenBox';
+				}
+			});
+		} else {
+			Ext.cq1('app-main').suspendEvent('remove');
+			Ext.getStore('Services').load();
+			Ext.Array.each(Ext.getStore('Services').collect('id'), function(serviceId) {
+				me.removeServiceFn(serviceId, true);
 			});
 			if ( Ext.isFunction(callback) ) callback();
 			Ext.cq1('app-main').resumeEvent('remove');

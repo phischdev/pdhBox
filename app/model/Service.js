@@ -73,5 +73,10 @@ Ext.define('Rambox.model.Service', {
 	 	 name: 'removable'
 		,type: 'boolean'
 		,defaultValue: true
+	},
+	{
+		name: 'editable'
+		,type: 'boolean'
+		,defaultValue: true
 	}]
 });

@@ -33,7 +33,11 @@ Ext.define('Rambox.Application', {
 		return stored;
 	}
 	,defaultServices: function () {
-		const stored = this.getStoredServices();
+		var stored = Ext.getStore('Services').load();
+		stored = stored.data.items;
+		stored = stored.map( function (g) {
+			return g.data;
+		});
 		console.log("STORED SERVICES", stored);
 		if (stored.length === 0) {
 			console.log('KEINE SERVICES');
@@ -286,14 +290,14 @@ Ext.define('Rambox.Application', {
 		// ga_storage._trackEvent('Versions', require('electron').remote.app.getVersion());
 
 		// Load language for Ext JS library
-		Ext.Loader.loadScript({url: Ext.util.Format.format("ext/packages/ext-locale/build/ext-locale-{0}.js", localStorage.getItem('locale-auth0') || 'en')});
+		Ext.Loader.loadScript({url: Ext.util.Format.format("ext/packages/ext-locale/build/ext-locale-{0}.js", localStorage.getItem('locale-auth0') || 'de')});
 
 		// Initialize Auth0
 		// PHISCH: Deactivated
 		//Rambox.ux.Auth0.init();
 
 		// EXPORT DEFUALT SERVICES
-		this.exportDefaultServices();
+		//this.exportDefaultServices();
 		this.defaultServices();
 
 		//TestForEmptyServices();

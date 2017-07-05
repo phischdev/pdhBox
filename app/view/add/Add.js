@@ -26,9 +26,13 @@ Ext.define('Rambox.view.add.Add',{
 
 	,initComponent: function() {
 		var me = this;
+		var editable = !me.record.get('editable');
 		const removable = !me.record.get('removable');
+		var align_right = me.record.get('align');
+		align_right = align_right === 'right';
 
-		console.log("NOT REMOVABLE: ", removable);
+		editable = editable && removable;
+		console.log("NOT REMOVABLE: ", editable);
 
 		me.title = (!me.edit ? locale['app.window[0]'] : locale['app.window[1]']) + ' ' + me.record.get('name');
 		me.icon = me.record.get('type') === 'custom' ? (!me.edit ? 'resources/icons/custom.png' : (me.record.get('logo') === '' ? 'resources/icons/custom.png' : me.record.get('logo'))) : 'resources/icons/'+me.record.get('logo');
@@ -44,11 +48,12 @@ Ext.define('Rambox.view.add.Add',{
 						,name: 'serviceName'
 						,allowBlank: true
 						,listeners: { specialkey: 'onEnter' }
-						,disabled: removable
+						,disabled: editable
 					}
 					,{
 						 xtype: 'container'
 						,layout: 'hbox'
+						,disabled: editable
 						,hidden: me.edit ? me.service.get('url').indexOf('___') === -1 && !me.service.get('custom_domain') : me.record.get('url').indexOf('___') === -1 && !me.record.get('custom_domain')
 						,items: [
 							{
@@ -72,7 +77,7 @@ Ext.define('Rambox.view.add.Add',{
 								,emptyText: me.record.get('url') === '___' ? 'http://' : ''
 								,vtype: me.record.get('url') === '___' ? 'url' : ''
 								,listeners: { specialkey: 'onEnter' }
-								,disabled: removable
+								,disabled: editable
 								,flex: 1
 							}
 							,{
@@ -95,7 +100,7 @@ Ext.define('Rambox.view.add.Add',{
 											,disabled: me.edit ? !me.service.get('custom_domain') : !me.record.get('custom_domain')
 										}
 									]
-								,disabled: removable
+								,disabled: editable
 							}
 								// Fixes bug EXTJS-20094 for version Ext JS 5
 								,arrowHandler: function(cycleBtn, e) {
@@ -126,7 +131,7 @@ Ext.define('Rambox.view.add.Add',{
 							,{
 								 xtype: 'hiddenfield'
 								,name: 'cycleValue'
-								,disabled: removable
+								,disabled: editable
 
 							,value: me.edit ? (me.service.get('custom_domain') && me.service.get('url') === me.record.get('url') ? 1 : (!Ext.String.endsWith(me.record.get('url'), me.service.get('url').split('___')[1]) ? 2 : 1)) : 1
 							}
@@ -144,7 +149,7 @@ Ext.define('Rambox.view.add.Add',{
 						,labelWidth: 40
 						,margin: '5 0 0 0'
 						,listeners: { specialkey: 'onEnter' }
-						,disabled: removable
+						,disabled: editable
 	}
 					,{
 						 xtype: 'fieldset'
@@ -158,11 +163,12 @@ Ext.define('Rambox.view.add.Add',{
 									{
 										 xtype: 'checkbox'
 										,boxLabel: locale['app.window[4]']
-										,checked: me.edit ? (me.record.get('align') === 'right' ? true : false) : false
+										,checked: align_right
+										// ,checked: me.edit ? (me.record.get('align') === 'right' ? true : false) : false
 										,name: 'align'
 										,uncheckedValue: 'left'
 										,inputValue: 'right'
-										,disabled: removable
+										,disabled: editable
 									}
 									,{
 										 xtype: 'checkbox'
@@ -253,7 +259,7 @@ Ext.define('Rambox.view.add.Add',{
 								,value: me.edit ? me.record.get('js_unread') : ''
 								,anchor: '100%'
 								,height: 120
-								,disabled: removable
+								,disabled: editable
 							}
 						]
 					}

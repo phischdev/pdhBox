@@ -48,7 +48,7 @@ Ext.define('Rambox.view.main.Main', {
 								{
 									 xtype: 'checkbox'
 									,boxLabel: locale['app.main[1]'] // Mitglieder
-									,name: 'messaging'
+									,name: 'mitglieder'
 									,checked: true
 									,uncheckedValue: false
 									,inputValue: true
@@ -132,7 +132,7 @@ Ext.define('Rambox.view.main.Main', {
 					}
 					,tools: [
 						{
-							 xtype: 'button'
+							xtype: 'button'
 							,glyph: 'xf1f8@FontAwesome'
 							,baseCls: ''
 							,tooltip: locale['app.main[10]'] // 'Zurücksetzen'
@@ -197,18 +197,18 @@ Ext.define('Rambox.view.main.Main', {
 								}
 							]
 						}
-						,{
-							 xtype: 'checkcolumn'
-							,width: 40
-							,dataIndex: 'enabled'
-							,renderer: function(value, metaData) {
-								metaData.tdAttr = 'data-qtip="Service '+(value ? 'Enabled' : 'Disabled')+'"';
-								return this.defaultRenderer(value, metaData);
-							}
-							,listeners: {
-								checkchange: 'onEnableDisableService'
-							}
-						}
+						// ,{
+						// 	 xtype: 'checkcolumn'
+						// 	,width: 40
+						// 	,dataIndex: 'enabled'
+						// 	,renderer: function(value, metaData) {
+						// 		metaData.tdAttr = 'data-qtip="Service '+(value ? 'Enabled' : 'Disabled')+'"';
+						// 		return this.defaultRenderer(value, metaData);
+						// 	}
+						// 	,listeners: {
+						// 		checkchange: 'onEnableDisableService'
+						// 	}
+						// }
 					]
 					,viewConfig: {
 						 emptyText: locale['app.main[15]']
@@ -313,9 +313,17 @@ Ext.define('Rambox.view.main.Main', {
 					// 	,handler: 'login'
 					// }
 					,{
-						 tooltip: locale['preferences[0]']
+						 //tooltip: locale['preferences[0]']
+						text: locale['preferences[0]']
 						,glyph: 'xf013@FontAwesome'
 						,handler: 'openPreferences'
+					}
+					,{
+						//tooltip: locale['preferences[0]']
+						text: 'Voreinstellungen laden'
+						,glyph: 'xf013@FontAwesome'
+						,handler: 'replaceAllServices'
+						,tooltip: 'Voreinstellungen dieser Version laden'
 					}
 				]
 			}
