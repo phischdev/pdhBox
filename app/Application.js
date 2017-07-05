@@ -38,7 +38,7 @@ Ext.define('Rambox.Application', {
 		stored = stored.map( function (g) {
 			return g.data;
 		});
-		console.log("STORED SERVICES", stored);
+		//console.log("STORED SERVICES", stored);
 		if (stored.length === 0) {
 			console.log('KEINE SERVICES');
 			const defaults =[
@@ -148,109 +148,6 @@ Ext.define('Rambox.Application', {
 						"js_unread": "",
 						"zoomLevel": 0,
 						"id": 20
-					},
-					{
-						"position": 8,
-						"type": "wordpress",
-						"logo": "wordpress.png",
-						"name": "WordPress",
-						"url": "https://parteiderhumanisten.de/wp2/wp-admin",
-						"align": "right",
-						"notifications": true,
-						"muted": false,
-						"displayTabUnreadCounter": true,
-						"includeInGlobalUnreadCounter": true,
-						"trust": true,
-						"enabled": true,
-						"js_unread": "",
-						"zoomLevel": 0,
-						"removable": true,
-						"id": 23
-					},
-				{
-					"position": 7,
-					"type": "roundcube",
-					"logo": "roundcube.png",
-					"name": "Mail",
-					"url": "https://webmail.df.eu/roundcube",
-					"align": "right",
-					"notifications": true,
-					"muted": false,
-					"displayTabUnreadCounter": true,
-					"includeInGlobalUnreadCounter": true,
-					"trust": false,
-					"enabled": false,
-					"js_unread": "Element.prototype.remove=function(){this.parentElement.removeChild(this)},NodeList.prototype.remove=HTMLCollection.prototype.remove=function(){for(var e=this.length-1;e>=0;e--)this[e]&&this[e].parentElement&&this[e].parentElement.removeChild(this[e])},document.getElementsByClassName('owa-banner').remove(),document.getElementsByTagName('footer').remove(),document.getElementsByTagName('aside').remove(),document.getElementsByTagName('h1').remove(),document.getElementsByTagName('table')[1].remove(),document.getElementsByTagName('dd')[0].remove(),document.getElementsByTagName('dl')[0].getElementsByTagName('dt')[0].remove(),document.getElementsByTagName('dl')[0].style.background='none',document.getElementsByTagName('dl')[0].style.padding='inherit',document.getElementsByTagName('article')[0].style.width='initial';",
-					"zoomLevel": 0,
-					"id": 3
-				},
-				{
-						"position": 9,
-						"type": "hangouts",
-						"logo": "hangouts.png",
-						"name": "Hangouts",
-						"url": "https://hangouts.google.com/",
-						"align": "right",
-						"notifications": true,
-						"muted": false,
-						"displayTabUnreadCounter": true,
-						"includeInGlobalUnreadCounter": true,
-						"trust": true,
-						"enabled": false,
-						"js_unread": "",
-						"zoomLevel": 0,
-						"id": 4
-					},
-					{
-						"position": 10,
-						"type": "tweetdeck",
-						"logo": "tweetdeck.png",
-						"name": "Twitter",
-						"url": "https://tweetdeck.twitter.com/",
-						"align": "right",
-						"notifications": true,
-						"muted": false,
-						"displayTabUnreadCounter": true,
-						"includeInGlobalUnreadCounter": true,
-						"trust": true,
-						"enabled": false,
-						"js_unread": "",
-						"zoomLevel": 0,
-						"id": 5
-					},
-					{
-						"position": 11,
-						"type": "custom",
-						"logo": "",
-						"name": "Facebook Manager",
-						"url": "https://facebook.com",
-						"align": "right",
-						"notifications": true,
-						"muted": false,
-						"displayTabUnreadCounter": true,
-						"includeInGlobalUnreadCounter": true,
-						"trust": true,
-						"enabled": false,
-						"js_unread": "",
-						"zoomLevel": 0,
-						"id": 9
-					},
-					{
-						"position": 12,
-						"type": "custom",
-						"logo": "",
-						"name": "KIX",
-						"url": "https://kix.diehumanisten.de",
-						"align": "right",
-						"notifications": true,
-						"muted": false,
-						"displayTabUnreadCounter": true,
-						"includeInGlobalUnreadCounter": true,
-						"trust": true,
-						"enabled": false,
-						"js_unread": "",
-						"zoomLevel": 0,
-						"id": 13
 					}
 				];
 
@@ -300,7 +197,6 @@ Ext.define('Rambox.Application', {
 		//this.exportDefaultServices();
 		this.defaultServices();
 
-		//TestForEmptyServices();
 
 
 

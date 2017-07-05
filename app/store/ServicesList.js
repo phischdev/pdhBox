@@ -72,7 +72,7 @@ Ext.define('Rambox.store.ServicesList', {
 			,logo: 'gdrive.png'
 			,name: 'Google Drive'
 			,type: 'mitarbeiter'
-			,url: "https://drive.google.com/drive/folders/0B3P74ADGKe_URWdPbEV0V05DU2c"
+			,url: "https://drive.google.com/drive/"
 			,editable: false
 			,align: 'right'
 		},
