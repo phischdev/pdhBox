@@ -26,7 +26,7 @@ Ext.define('Rambox.store.ServicesList', {
 			logo: 'trello.png'			,
 			name: 'Trello'			,
 			description: 'Infinitely flexible. Incredibly easy to use. Great mobile apps. It\'s free. Trello keeps track of everything, from the big picture to the minute details.',
-			url: 'https://trello.com/login',
+			url: 'https://trello.com/mitgliederpdh',
 			type: 'mitglieder',
 			editable: false
 		},
@@ -100,7 +100,7 @@ Ext.define('Rambox.store.ServicesList', {
 		{
 			id: 'custom'
 			,logo: 'custom.png'
-			,name: '_Custom Service'
+			,name: '_andere Plattform'
 			,description: 'Add a custom service if is not listed above.'
 			,url: '___'
 			,type: 'custom'
@@ -114,6 +114,16 @@ Ext.define('Rambox.store.ServicesList', {
 			,url: 'https://parteiderhumanisten.de/wp2/wp-admin'
 			,type: 'mitarbeiter'
 			,allow_popups: true
+			,editable: false
+		},
+		{
+			id: 'reddit'
+			,logo: 'reddit.png'
+			,name: 'Reddit'
+			,description: 'Add a custom service if is not listed above.'
+			,url: 'https://reddit.com/r/diehumanisten/'
+			,type: 'mitglieder'
+			,editable: false
 		},
 		{
 			id: 'info'

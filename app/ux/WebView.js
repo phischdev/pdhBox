@@ -433,6 +433,8 @@ Ext.define('Rambox.ux.WebView',{
 					selectType = "hangouts_call";
 				else if (e.url.match('https?:\/\/hangouts.google.com\/'))
 					selectType = "hangouts";
+				else if (e.url.match('https?:\/\/(www.)?reddit.com\/'))
+					selectType = "reddit";
 
 				// Special case Hangouts
 				if (selectType == "hangouts_call")
@@ -504,7 +506,7 @@ Ext.define('Rambox.ux.WebView',{
 					}
 			}
 
-			console.log("preventing naviagtion");
+			console.log("Nope. Preventing navigation");
 			e.preventDefault();
 		});
 

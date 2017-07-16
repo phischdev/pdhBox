@@ -136,7 +136,14 @@ Ext.define('Rambox.view.add.AddController', {
 	,onShow: function(win) {
 		var me = this;
 
-		// Make focus to the name field
-		win.down('textfield[name="serviceName"]').focus(true, 100);
+		const isEditable = win.record.get('editable');
+		console.log("isEditable: ", isEditable);
+
+		if (!win.edit && !win.record.get('editable')) {
+			this.doSave(null);
+		} else {
+			// Make focus to the name field
+			win.down('textfield[name="serviceName"]').focus(true, 100);
+		}
 	}
 });

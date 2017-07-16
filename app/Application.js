@@ -83,7 +83,7 @@ Ext.define('Rambox.Application', {
 						"type": "trello",
 						"logo": "trello.png",
 						"name": "Trello",
-						"url": "https://trello.com/login",
+						"url": "https://trello.com/mitgliederpdh",
 						"align": "left",
 						"notifications": true,
 						"muted": false,
