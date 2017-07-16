@@ -43,59 +43,44 @@ Ext.define('Rambox.view.preferences.Preferences',{
 				 xtype: 'form'
 				,bodyPadding: 20
 				,items: [
-					{
-						xtype: 'container'
-						,layout: 'hbox'
-						,items: [
-							{
-								 xtype: 'combo'
-								,name: 'locale'
-								,fieldLabel: 'Language'
-								,labelAlign: 'left'
-								,flex: 1
-								,labelWidth: 80
-								,value: config.locale
-								,displayField: 'label'
-								,valueField: 'value'
-								,editable: false
-								,store: Ext.create('Ext.data.Store', {
-									 fields: ['value', 'label']
-									,data: [
-										//  { 'value': 'ar', 'auth0': 'en', 'label': 'Arabic' }
-										// ,{ 'value': 'cs', 'auth0': 'cs', 'label': 'Czech' }
-										// ,{ 'value': 'nl', 'auth0': 'nl', 'label': 'Dutch' }
-										// ,{ 'value': 'en', 'auth0': 'en', 'label': 'English' }
-										// ,{ 'value': 'fr', 'auth0': 'fr', 'label': 'French' }
-										//,{ 'value': 'de', 'auth0': 'de', 'label': 'German' }
-										{ 'value': 'de-humanisten', 'auth0': 'de', 'label': 'Humanistendeutsch' }
-										// ,{ 'value': 'el', 'auth0': 'en', 'label': 'Greek' }
-										// ,{ 'value': 'id', 'auth0': 'en', 'label': 'Indonesian' }
-										// ,{ 'value': 'it', 'auth0': 'it', 'label': 'Italian' }
-										// ,{ 'value': 'ko', 'auth0': 'en', 'label': 'Korean' }
-										// ,{ 'value': 'fa', 'auth0': 'fa', 'label': 'Persian' }
-										// ,{ 'value': 'pl', 'auth0': 'pl', 'label': 'Polish' }
-										// ,{ 'value': 'pt-PT', 'auth0': 'pt-br', 'label': 'Portuguese' }
-										// ,{ 'value': 'pt-BR', 'auth0': 'pt-br', 'label': 'Portuguese (Brazilian)' }
-										// ,{ 'value': 'ru', 'auth0': 'ru', 'label': 'Russian' }
-										// ,{ 'value': 'es-ES', 'auth0': 'es', 'label': 'Spanish' }
-										// ,{ 'value': 'tr', 'auth0': 'tr', 'label': 'Turkish' }
-									]
-								})
-							}
-							// ,{
-							// 	 xtype: 'button'
-							// 	,text: 'Help us Translate'
-							// 	,style: 'border-top-left-radius:0;border-bottom-left-radius:0;'
-							// 	,href: 'https://crowdin.com/project/rambox/invite'
-							// }
-						]
-					}
-					,{
-						 xtype: 'label'
-						,text: 'English is the only language that has full translation. We are working with all the others, help us!'
-						,style: 'display:block;font-size:10px;line-height:15px;'
-						,margin: '0 0 10 0'
-					}
+					// {
+					// 	xtype: 'container'
+					// 	,layout: 'hbox'
+					// 	,items: [
+					// 		{
+					// 			 xtype: 'combo'
+					// 			,name: 'locale'
+					// 			,fieldLabel: 'Language'
+					// 			,labelAlign: 'left'
+					// 			,flex: 1
+					// 			,labelWidth: 80
+					// 			,value: config.locale
+					// 			,displayField: 'label'
+					// 			,valueField: 'value'
+					// 			,editable: false
+					// 			,store: Ext.create('Ext.data.Store', {
+					// 				 fields: ['value', 'label']
+					// 				,data: [
+					// 					// ,{ 'value': 'en', 'auth0': 'en', 'label': 'English' }
+					// 					//,{ 'value': 'de', 'auth0': 'de', 'label': 'German' }
+					// 					{ 'value': 'de-humanisten', 'auth0': 'de', 'label': 'Humanistendeutsch' }
+					// 				]
+					// 			})
+					// 		}
+					// 		// ,{
+					// 		// 	 xtype: 'button'
+					// 		// 	,text: 'Help us Translate'
+					// 		// 	,style: 'border-top-left-radius:0;border-bottom-left-radius:0;'
+					// 		// 	,href: 'https://crowdin.com/project/rambox/invite'
+					// 		// }
+					// 	]
+					// }
+					// ,{
+					// 	 xtype: 'label'
+					// 	,text: 'English is the only language that has full translation. We are working with all the others, help us!'
+					// 	,style: 'display:block;font-size:10px;line-height:15px;'
+					// 	,margin: '0 0 10 0'
+					// }
 					,{
 						 xtype: 'checkbox'
 						,name: 'auto_launch'

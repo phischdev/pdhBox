@@ -128,6 +128,8 @@ Ext.define('Rambox.view.main.MainController', {
 					if ( Ext.isFunction(callback) ) callback();
 					Ext.cq1('app-main').resumeEvent('remove');
 					document.title = 'HumanistenBox';
+
+					ipc.send('relaunchApp');
 				}
 			});
 		} else {
@@ -194,12 +196,23 @@ Ext.define('Rambox.view.main.MainController', {
 		}
 	}
 
+	,doInitialFilter: function () {
+	 	var me = this;
+	 	console.log('shown');
+
+	 	me.doTypeFilter(
+			null
+			,{type: "mitglieder"}
+			, null);
+	}
 	,doTypeFilter: function( cg, newValue, oldValue ) {
 		var me = this;
 
+		const filterStrings = [newValue['type']];
+
 		Ext.getStore('ServicesList').getFilters().replaceAll({
 			fn: function(record) {
-				return Ext.Array.contains(Ext.Object.getKeys(cg.getValue()), record.get('type')) || record.get('type') === 'custom';
+				return Ext.Array.contains(filterStrings, record.get('type')) || record.get('type') === 'custom';
 			}
 		});
 	}
@@ -369,7 +382,7 @@ Ext.define('Rambox.view.main.MainController', {
 							,autoEl: {
 								 tag: 'h1'
 								,html: locale['app.window[26]']
-								,style: 'text-align:center;width:256px;'
+								,style: 'text-align:center;width:256px;color:white;'
 						   }
 						}
 						,{

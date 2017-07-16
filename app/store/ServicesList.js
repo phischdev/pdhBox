@@ -79,6 +79,7 @@ Ext.define('Rambox.store.ServicesList', {
 		{
 			 id: 'hangouts'
 			,logo: 'hangouts.png'
+			,align: 'right'
 			,name: 'Hangouts'
 			,description: 'Hangouts bring conversations to life with photos, emoji, and even group video calls for free. Connect with friends across computers, Android, and Apple devices.'
 			,url: 'https://hangouts.google.com/'
@@ -96,6 +97,7 @@ Ext.define('Rambox.store.ServicesList', {
 			,description: 'TweetDeck is a social media dashboard application for management of Twitter accounts.'
 			,url: 'https://tweetdeck.twitter.com/'
 			,type: 'mitarbeiter'
+			,align: 'right'
 		},
 		{
 			id: 'custom'
@@ -115,6 +117,7 @@ Ext.define('Rambox.store.ServicesList', {
 			,type: 'mitarbeiter'
 			,allow_popups: true
 			,editable: false
+			,align: 'right'
 		},
 		{
 			id: 'reddit'
@@ -130,8 +133,8 @@ Ext.define('Rambox.store.ServicesList', {
 			,logo: 'custom.png'
 			,name: 'Infos'
 			,description: 'Infoseite zu unseren Plattformen'
-			,url: 'https://diehumanisten.de/'
-			,type: 'mitglied'
+			,url: 'https://tools.diehumanisten.de'
+			,type: 'mitglieder'
 			,editable: false
 		},
 		{
@@ -142,12 +145,14 @@ Ext.define('Rambox.store.ServicesList', {
 			,url: 'https://webmail.df.eu/roundcube/'
 			,editable: false
 			,type: 'mitarbeiter'
+			,align: 'right'
 			,js_unread: 'Element.prototype.remove=function(){this.parentElement.removeChild(this)},NodeList.prototype.remove=HTMLCollection.prototype.remove=function(){for(var e=this.length-1;e>=0;e--)this[e]&&this[e].parentElement&&this[e].parentElement.removeChild(this[e])},document.getElementsByClassName("owa-banner").remove(),document.getElementsByTagName("footer").remove(),document.getElementsByTagName("aside").remove(),document.getElementsByTagName("h1").remove();'
 		},
 		{
 			id: 'hootsuite'
 			,logo: 'hootsuite.png'
 			,name: 'Hootsuite'
+			,align: 'right'
 			,description: 'Enhance your social media management with Hootsuite, the leading social media dashboard. Manage multiple networks and profiles and measure your campaign results.'
 			,url: 'https://hootsuite.com/dashboard'
 			,type: 'mitarbeiter'

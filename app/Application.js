@@ -132,22 +132,6 @@ Ext.define('Rambox.Application', {
 						"zoomLevel": 0,
 						"id": 18,
 						"removable": false
-					}, {
-						"position": 6,
-						"type": "facebook",
-						"logo": "facebook.png",
-						"name": "Facebook",
-						"url": "https://www.facebook.com/parteiderhumanisten",
-						"align": "left",
-						"notifications": true,
-						"muted": false,
-						"displayTabUnreadCounter": true,
-						"includeInGlobalUnreadCounter": true,
-						"trust": true,
-						"enabled": true,
-						"js_unread": "",
-						"zoomLevel": 0,
-						"id": 20
 					}
 				];
 
@@ -172,6 +156,7 @@ Ext.define('Rambox.Application', {
 					Ext.cq1('app-main').add(tabData).show();
 				}
 			});
+			Ext.cq1('app-main').setActiveTab(0);
 		}
 	}
 	,exportDefaultServices: function () {
@@ -196,7 +181,7 @@ Ext.define('Rambox.Application', {
 		// EXPORT DEFUALT SERVICES
 		//this.exportDefaultServices();
 		this.defaultServices();
-
+		//TODO: Ext.cq1('app-main').doInitialFilter();
 
 
 

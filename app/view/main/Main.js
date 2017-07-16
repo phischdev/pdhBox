@@ -43,24 +43,24 @@ Ext.define('Rambox.view.main.Main', {
 					,header: { height: 50 }
 					,tools: [
 						{
-							 xtype: 'checkboxgroup'
+							 xtype: 'radiogroup'
 							,items: [
 								{
-									 xtype: 'checkbox'
+									 xtype: 'radio'
 									,boxLabel: locale['app.main[1]'] // Mitglieder
-									,name: 'mitglieder'
+									,name: 'type'
 									,checked: true
-									,uncheckedValue: false
-									,inputValue: true
+									// ,uncheckedValue: false
+									,inputValue: 'mitglieder'
 								}
 								,{
-									xtype: 'checkbox'
+									xtype: 'radio'
 									,boxLabel: locale['app.main[2]'] // Mitarbeiter
 									,margin: '0 10 0 10'
-									,name: 'mitarbeiter'
-									,checked: true
-									,uncheckedValue: false
-									,inputValue: true
+									,name: 'type'
+									// ,checked: false
+									// ,uncheckedValue: false
+									,inputValue: 'mitarbeiter'
 								}
 							]
 							,listeners: {
