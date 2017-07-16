@@ -125,13 +125,13 @@ Ext.define('Rambox.store.ServicesList', {
 			,name: 'Reddit'
 			,description: 'Add a custom service if is not listed above.'
 			,url: 'https://reddit.com/r/diehumanisten/'
-			,type: 'mitglieder'
+			,type: 'mitarbeiter'
 			,editable: false
 		},
 		{
 			id: 'info'
 			,logo: 'custom.png'
-			,name: 'Infos'
+			,name: 'Info'
 			,description: 'Infoseite zu unseren Plattformen'
 			,url: 'https://tools.diehumanisten.de'
 			,type: 'mitglieder'
