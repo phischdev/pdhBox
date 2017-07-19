@@ -164,7 +164,7 @@ function createWindow () {
 	// Open links in default browser
 	//TODO: link services
 	mainWindow.webContents.on('new-window', function(e, url, frameName, disposition, options) {
-		console.log("Link clicked");
+		console.log("--> Link clicked - main.js");
 		if ( disposition !== 'foreground-tab' ) return;
 		const protocol = require('url').parse(url).protocol;
 		switch ( disposition ) {

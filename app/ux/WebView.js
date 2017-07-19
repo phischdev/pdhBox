@@ -120,6 +120,12 @@ Ext.define('Rambox.ux.WebView',{
 							,scope: me
 							,handler: me.toggleDevTools
 						}
+						,{
+							text: 'Link kopieren'
+							,glyph: 'xf0c5@FontAwesome'
+							,scope: me
+							,handler: me.copyURL
+						}
 					]
 				}
 			}
@@ -207,24 +213,34 @@ Ext.define('Rambox.ux.WebView',{
 					 xtype: 'tbtext'
 					,itemId: 'url'
 				}
-				// ,{
-				// 	 xtype: 'button'
-				// 	,glyph: 'xf00d@FontAwesome'
-				// 	,scale: 'small'
-				// 	,ui: 'decline'
-				// 	,padding: 0
-				// 	,scope: me
-				// 	,hidden: floating
-				// 	,handler: me.closeStatusBar
-				// 	,tooltip: {
-				// 		 text: 'Close statusbar until next time'
-				// 		,mouseOffset: [0,-60]
-				// 	}
-				// }
+
+				,{
+					 xtype: 'button'
+					,glyph: 'xf0c5@FontAwesome'
+					,scale: 'small'
+					,ui: 'decline'
+					,padding: 0
+					,scope: me
+					,hidden: floating
+					,handler: me.copyLink
+					,tooltip: {
+						 text: 'Link kopieren'
+						,mouseOffset: [0,-60]
+					}
+				}
 			]
 		};
 	}
+	,copyURL: function() {
+	 	var me = this;
+		if ( !me.record.get('enabled') ) return;
 
+		var webview = me.down('component').el.dom;
+	 	const url = webview.src;
+
+		const clipboard = require('electron').clipboard;
+		clipboard.writeText(url);
+	}
 	,onAfterRender: function() {
 		var me = this;
 
@@ -236,20 +252,22 @@ Ext.define('Rambox.ux.WebView',{
 		me.setNotifications(localStorage.getItem('locked') || JSON.parse(localStorage.getItem('dontDisturb')) ? false : me.record.get('notifications'));
 
 		// Show and hide spinner when is loading
-		webview.addEventListener("did-start-loading", function() {
+		webview.addEventListener("did-start-loading", function(e) {
 			console.info('Start loading...', me.src);
 			if ( !me.down('statusbar').closed || !me.down('statusbar').keep ) me.down('statusbar').show();
 			me.down('statusbar').showBusy();
+			//console.log("did-start", e);
 		});
 
-		webview.addEventListener("did-stop-loading", function() {
+		webview.addEventListener("did-stop-loading", function(e) {
 			me.down('statusbar').clearStatus({useDefaults: true});
 			if ( !me.down('statusbar').keep ) me.down('statusbar').hide();
+			//console.log("did-stop", e);
 		});
 
 		webview.addEventListener("did-finish-load", function(e) {
 			Rambox.app.setTotalServicesLoaded( Rambox.app.getTotalServicesLoaded() + 1 );
-
+			console.log("did-finish", e);
 			// Apply saved zoom level
 			webview.setZoomLevel(me.record.get('zoomLevel'));
 		});
@@ -502,6 +520,7 @@ Ext.define('Rambox.ux.WebView',{
 				case "wiki":
 					if (url.match('https?:\/\/wiki.diehumanisten.de\/')) {
 						// Allow
+						consoloe.log("granted");
 						return;
 					}
 			}
@@ -624,6 +643,7 @@ Ext.define('Rambox.ux.WebView',{
 
 		webview.addEventListener('update-target-url', function( url ) {
 			me.down('statusbar #url').setText(url.url);
+			console.log("update-target-url", url.url);
 		});
 	}
 
@@ -692,15 +712,7 @@ Ext.define('Rambox.ux.WebView',{
 		Rambox.util.UnreadCounter.clearUnreadCountForService(me.record.get('id'));
 	}
 
-	,reloadService: function(btn) {
-		var me = this;
-		var webview = me.down('component').el.dom;
 
-		if ( me.record.get('enabled') ) {
-			me.clearUnreadCounter();
-			webview.loadURL(me.src);
-		}
-	}
 
 	,toggleDevTools: function(btn) {
 		var me = this;

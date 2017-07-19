@@ -45,7 +45,7 @@
 	"zip:linux": "npm run zip:linux32 && npm run zip:linux64",
 	"zip": "cd dist && npm run zip:osx && npm run zip:win && npm run zip:linux",
 
-	"fixi": "npm run sencha:clean && npm run sencha:compile && npm run clean && npm run pack && npm run zip"
+	"fixi": "npm run sencha:clean && npm run sencha:compile && npm run clean && npm run pack"
   },
   "build": {
     "productName": "HumanistenBox",
