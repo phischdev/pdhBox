@@ -214,20 +214,20 @@ Ext.define('Rambox.ux.WebView',{
 					,itemId: 'url'
 				}
 
-				,{
-					 xtype: 'button'
-					,glyph: 'xf0c5@FontAwesome'
-					,scale: 'small'
-					,ui: 'decline'
-					,padding: 0
-					,scope: me
-					,hidden: floating
-					,handler: me.copyLink
-					,tooltip: {
-						 text: 'Link kopieren'
-						,mouseOffset: [0,-60]
-					}
-				}
+				// ,{
+				// 	 xtype: 'button'
+				// 	,glyph: 'xf0c5@FontAwesome'
+				// 	,scale: 'small'
+				// 	,ui: 'decline'
+				// 	,padding: 0
+				// 	,scope: me
+				// 	,hidden: floating
+				// 	,handler: me.copyLink
+				// 	,tooltip: {
+				// 		 text: 'Link kopieren'
+				// 		,mouseOffset: [0,-60]
+				// 	}
+				// }
 			]
 		};
 	}
