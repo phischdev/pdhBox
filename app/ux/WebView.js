@@ -89,6 +89,19 @@ Ext.define('Rambox.ux.WebView',{
 						}
 						,'-'
 						,{
+							text: locale['app.webview[0]']
+							,glyph: 'xf021@FontAwesome'
+							,scope: me
+							,handler: me.reloadService
+						}
+						,{
+							text: 'Link kopieren'
+							,glyph: 'xf0c5@FontAwesome'
+							,scope: me
+							,handler: me.copyURL
+						}
+						,'-'
+						,{
 							 text: 'Reinzoomen'
 							,glyph: 'xf00e@FontAwesome'
 							,scope: me
@@ -108,23 +121,10 @@ Ext.define('Rambox.ux.WebView',{
 						}
 						,'-'
 						,{
-							 text: locale['app.webview[0]']
-							,glyph: 'xf021@FontAwesome'
-							,scope: me
-							,handler: me.reloadService
-						}
-						,'-'
-						,{
 							 text: locale['app.webview[3]']
 							,glyph: 'xf121@FontAwesome'
 							,scope: me
 							,handler: me.toggleDevTools
-						}
-						,{
-							text: 'Link kopieren'
-							,glyph: 'xf0c5@FontAwesome'
-							,scope: me
-							,handler: me.copyURL
 						}
 					]
 				}
@@ -166,6 +166,9 @@ Ext.define('Rambox.ux.WebView',{
 				,padding: 100
 			};
 		} else {
+			const disable_security = me.record.get('disable_security');
+			if (disable_security)
+				console.log("disabled security for", me.record.get('type'));
 			cfg = [{
 				 xtype: 'component'
 				,hideMode: 'offsets'
@@ -181,6 +184,7 @@ Ext.define('Rambox.ux.WebView',{
 					,allowtransparency: 'on'
 					,allowpopups: true
 					,autosize: 'on'
+					,disablewebsecurity: disable_security
 					//,webpreferences: 'nodeIntegration=no'
 					//,disablewebsecurity: 'on' // Disabled because some services (Like Google Drive) dont work with this enabled
 					,useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
@@ -253,7 +257,7 @@ Ext.define('Rambox.ux.WebView',{
 
 		// Show and hide spinner when is loading
 		webview.addEventListener("did-start-loading", function(e) {
-			console.info('Start loading...', me.src);
+			//console.info('Start loading...', me.src);
 			if ( !me.down('statusbar').closed || !me.down('statusbar').keep ) me.down('statusbar').show();
 			me.down('statusbar').showBusy();
 			//console.log("did-start", e);
@@ -267,14 +271,19 @@ Ext.define('Rambox.ux.WebView',{
 
 		webview.addEventListener("did-finish-load", function(e) {
 			Rambox.app.setTotalServicesLoaded( Rambox.app.getTotalServicesLoaded() + 1 );
-			console.log("did-finish", e);
+			//console.log("did-finish", e);
 			// Apply saved zoom level
 			webview.setZoomLevel(me.record.get('zoomLevel'));
 		});
 
 		// Open links in default browser
 		webview.addEventListener('new-window', function(e) {
-			switch (me.type) {
+			console.log("default prevented:", e.defaultPrevented);
+
+				switch (me.type) {
+				case 'likeshare':
+					console.log('like & share, facebook');
+					return;
 				case 'discourse':
 					console.log("from DISK");
 					if (e.url.indexOf('auth/facebook?display=popup') > 0) {
@@ -353,6 +362,7 @@ Ext.define('Rambox.ux.WebView',{
 						return;
 					}
 					break;
+				case 'slack2':
 				case 'slack':
 					if (e.url.indexOf('slack.com/call/') >= 0) {
 						me.add({
@@ -382,7 +392,7 @@ Ext.define('Rambox.ux.WebView',{
 								}
 							}
 						}).show();
-						console.log("prevent");
+						console.log("preventing default");
 						e.preventDefault();
 						return;
 					} else if (e.url.indexOf('slack-redir.net/') >= 0) {
@@ -397,38 +407,28 @@ Ext.define('Rambox.ux.WebView',{
 						if (e.url.indexOf('?preview=true' > 0)) {
 							console.log("WP Preview");
 							return;
-
 						}
 					}
 				default:
 					break;
 			}
+			console.log("default prevented:", e.defaultPrevented);
 			if (e.url.match('https?:\/\/files.slack.com\/')) {
-				me.add({
-					xtype: 'window'
-					, title: e.options.title
-					, width: e.options.width
-					, height: e.options.height
-					, maximizable: true
-					, modal: true
-					, items: {
-						xtype: 'component'
-						, hideMode: 'offsets'
-						, autoRender: true
-						, autoShow: true
-						, autoEl: {
-							tag: 'webview'
-							,
-							src: e.url
-							,
-							style: 'width:100%;height:100%;'
-							,partition: e.options.webPreferences.partition
-							,
-							useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
-						}
-					}
-				}).show();
+				const partition = e.target.partition;
+				console.log("Downloading file from Slack", e);
 				e.preventDefault();
+				console.log("default prevented:", e.defaultPrevented);
+				// window.open(
+				// 	e.url,
+				// 	"Download",
+				// 	{
+				// 		partition: ""
+				// 	}
+				// 	);
+				//e.preventDefault();
+				e.returnValue = false;
+				e.defaultPrevented = false;
+
 				return;
 			};
 
@@ -441,6 +441,8 @@ Ext.define('Rambox.ux.WebView',{
 					selectType = "facebook";
 				else if (e.url.match('https?:\/\/pgs-diehumanisten.slack.com\/'))
 					selectType = "slack";
+				else if (e.url.match('https?:\/\/slack.com\/'))
+					selectType = "slack2";
 				else if (e.url.match('https?:\/\/disk.diehumanisten.de\/'))
 					selectType = "discourse";
 				else if (e.url.match('https?:\/\/wiki.diehumanisten.de\/'))
@@ -643,7 +645,7 @@ Ext.define('Rambox.ux.WebView',{
 
 		webview.addEventListener('update-target-url', function( url ) {
 			me.down('statusbar #url').setText(url.url);
-			console.log("update-target-url", url.url);
+			//console.log("update-target-url", url.url);
 		});
 	}
 
@@ -712,7 +714,15 @@ Ext.define('Rambox.ux.WebView',{
 		Rambox.util.UnreadCounter.clearUnreadCountForService(me.record.get('id'));
 	}
 
+	,reloadService: function(btn) {
+		var me = this;
+		var webview = me.down('component').el.dom;
 
+		if ( me.record.get('enabled') ) {
+			me.clearUnreadCounter();
+			webview.loadURL(me.src);
+		}
+	}
 
 	,toggleDevTools: function(btn) {
 		var me = this;

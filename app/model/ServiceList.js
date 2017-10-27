@@ -67,5 +67,9 @@ Ext.define('Rambox.model.ServiceList', {
 		, type: 'string'
 		, defaultValue: 'left'
 	}
+	,{	name: 'disable_security'
+	 	, type: 'boolean'
+	 	,defaultValue: false
+	 }
 	]
 });

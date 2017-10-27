@@ -78,5 +78,10 @@ Ext.define('Rambox.model.Service', {
 		name: 'editable'
 		,type: 'boolean'
 		,defaultValue: true
-	}]
+	},
+	{	name: 'disable_security'
+		, type: 'boolean'
+		,defaultValue: false
+	}
+	]
 });

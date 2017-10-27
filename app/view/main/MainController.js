@@ -129,7 +129,7 @@ Ext.define('Rambox.view.main.MainController', {
 					Ext.cq1('app-main').resumeEvent('remove');
 					document.title = 'HumanistenBox';
 
-					ipc.send('relaunchApp');
+					ipc.send('reloadApp');
 				}
 			});
 		} else {
@@ -161,8 +161,11 @@ Ext.define('Rambox.view.main.MainController', {
 					if ( Ext.isFunction(callback) ) callback();
 					Ext.cq1('app-main').resumeEvent('remove');
 					document.title = 'HumanistenBox';
+
+					window.location.reload();
 				}
 			});
+			
 		} else {
 			Ext.cq1('app-main').suspendEvent('remove');
 			Ext.getStore('Services').load();

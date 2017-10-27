@@ -34,7 +34,7 @@ exports.create = function(win, config) {
 	appIcon = new Tray(iconPath);
 	appIcon.setToolTip('HumanistenBox');
 	appIcon.setContextMenu(contextMenu);
-	appIcon.on('double-click', function() {
+	appIcon.on('click', function() {
 		win.webContents.executeJavaScript('ipc.send("toggleWin", true);');
 	});
 };

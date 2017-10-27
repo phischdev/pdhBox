@@ -52,6 +52,7 @@ Ext.define('Rambox.store.Services', {
 					,muted: service.get('muted')
 					,removable: service.get('removable')
 					,editable: service.get('editable')
+					,disable_security: service.get('disable_security')
 					,includeInGlobalUnreadCounter: service.get('includeInGlobalUnreadCounter')
 					,displayTabUnreadCounter: service.get('displayTabUnreadCounter')
 					,enabled: service.get('enabled')
