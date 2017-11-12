@@ -52,9 +52,17 @@ Ext.define('Rambox.store.ServicesList', {
 			id: 'wiki',
 			logo: 'wiki.png'			,
 			name: 'Wiki'			,
-			url: 'https://diehumanisten.de/wiki',
+			url: 'https://wiki.diehumanisten.de/',
 			type: 'mitglieder',
 			editable: false
+		},
+		{
+			id: 'itwiki',
+			logo: 'wiki.png'			,
+			name: 'IT-Wiki'			,
+			url: '',
+			type: 'mitarbeiter',
+			editable: true
 		},
 		{
 			 id: 'slack'
