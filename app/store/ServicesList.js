@@ -24,10 +24,11 @@ Ext.define('Rambox.store.ServicesList', {
 		{
 			id: 'kix',
 			logo: 'kix.png'			,
-			name: 'Kix'			,
+			name: 'Tickets'			,
 			description: 'Ticketsystem.',
 			url: 'https://office.diehumanisten.de',
 			type: 'mitarbeiter',
+			align: 'right',
 			editable: false
 		},
 		{
@@ -36,7 +37,7 @@ Ext.define('Rambox.store.ServicesList', {
 			name: 'GitLab'			,
 			description: 'Codeverwaltung.',
 			url: 'https://code.diehumanisten.de',
-			type: 'mitarbeiter',
+			type: 'pdh-it',
 			editable: false
 		},
 		{
@@ -61,7 +62,7 @@ Ext.define('Rambox.store.ServicesList', {
 			logo: 'wiki.png'			,
 			name: 'IT-Wiki'			,
 			url: '',
-			type: 'mitarbeiter',
+			type: 'pdh-it',
 			editable: true
 		},
 		{
@@ -69,11 +70,11 @@ Ext.define('Rambox.store.ServicesList', {
 			,logo: 'slack.png'
 			,name: 'Slack'
 			,editable: false
-			,description: 'Slack brings all your communication together in one place. It’s real-time messaging, archiving and search for modern teams.'
+			,description: locale['services[1]']
 			,url: 'https://pgs-diehumanisten.slack.com/'
 			,type: 'mitglieder'
-			,allow_popus: true
-			,js_unread: 'function checkUnread(){var a=0,b=0;$(".unread_msgs").each(function(){a+=isNaN(parseInt($(this).html())) ? 0 : parseInt($(this).html())}),$(".unread_highlights").each(function(){b+=isNaN(parseInt($(this).html())) ? 0 : parseInt($(this).html())}),updateBadge(a,b)}function updateBadge(a,b){var c=b>0?"("+b+") ":a>0?"(•) ":"";document.title=c+originalTitle}var originalTitle=document.title;setInterval(checkUnread,3000);'
+			// ,allow_popus: true
+			,js_unread: 'function checkUnread(){var e=$(".p-channel_sidebar__channel--unread:not(.p-channel_sidebar__channel--muted)").length,a=0;$(".p-channel_sidebar__badge").each(function(){a+=isNaN(parseInt($(this).html()))?0:parseInt($(this).html())}),updateBadge(e,a)}function updateBadge(e,a){var n=a>0?"("+a+") ":e>0?"(•) ":"";document.title=n+originalTitle}var originalTitle=document.title;setInterval(checkUnread,3e3);'
 		},
 		{
 			 id: 'slack2'
@@ -81,10 +82,10 @@ Ext.define('Rambox.store.ServicesList', {
 			,name: 'weiteres Slackteam'
 			,editable: true
 			,description: 'Slack brings all your communication together in one place. It’s real-time messaging, archiving and search for modern teams.'
-			,url: 'https://slack.com/'
+			,url: 'https://slack.com/intl/de-de/signin'
 			,type: 'mitarbeiter'
 			,allow_popus: true
-			,js_unread: 'function checkUnread(){var a=0,b=0;$(".unread_msgs").each(function(){a+=isNaN(parseInt($(this).html())) ? 0 : parseInt($(this).html())}),$(".unread_highlights").each(function(){b+=isNaN(parseInt($(this).html())) ? 0 : parseInt($(this).html())}),updateBadge(a,b)}function updateBadge(a,b){var c=b>0?"("+b+") ":a>0?"(•) ":"";document.title=c+originalTitle}var originalTitle=document.title;setInterval(checkUnread,3000);'
+			,js_unread: 'function checkUnread(){var e=$(".p-channel_sidebar__channel--unread:not(.p-channel_sidebar__channel--muted)").length,a=0;$(".p-channel_sidebar__badge").each(function(){a+=isNaN(parseInt($(this).html()))?0:parseInt($(this).html())}),updateBadge(e,a)}function updateBadge(e,a){var n=a>0?"("+a+") ":e>0?"(•) ":"";document.title=n+originalTitle}var originalTitle=document.title;setInterval(checkUnread,3e3);'
 		},
 		{
 			id: 'discourse'
@@ -118,29 +119,29 @@ Ext.define('Rambox.store.ServicesList', {
 			,logo: 'hangouts.png'
 			,align: 'right'
 			,name: 'Hangouts'
-			,description: 'Hangouts bring conversations to life with photos, emoji, and even group video calls for free. Connect with friends across computers, Android, and Apple devices.'
+			,description: locale['services[5]']
 			,url: 'https://hangouts.google.com/'
 			,type: 'mitarbeiter'
 			,titleBlink: true
 			,manual_notifications: true
+			,dont_update_unread_from_title: true
 			,js_unread: 'function checkUnread(){updateBadge(document.getElementById("hangout-landing-chat").lastChild.contentWindow.document.body.getElementsByClassName("ee").length)}function updateBadge(e){e>=1?rambox.setUnreadCount(e):rambox.clearUnreadCount()}setInterval(checkUnread,3000);'
-			//,js_unread: 'function checkUnread(){updateBadge(document.getElementById("hangout-landing-chat").lastChild.contentWindow.document.body.getElementsByClassName("ee").length)}function updateBadge(e){e>=1?document.title="("+e+") "+originalTitle:document.title=originalTitle}var originalTitle=document.title;setInterval(checkUnread,3000);'
 		},
 
 		{
 			id: 'tweetdeck'
 			,logo: 'tweetdeck.png'
 			,name: 'TweetDeck'
-			,description: 'TweetDeck is a social media dashboard application for management of Twitter accounts.'
+			,description: locale['services[36]']
 			,url: 'https://tweetdeck.twitter.com/'
-			,type: 'mitarbeiter'
+			,type: 'pdh-presse'
 			,align: 'right'
 		},
 		{
 			id: 'custom'
 			,logo: 'custom.png'
 			,name: '_andere Plattform'
-			,description: 'Add a custom service if is not listed above.'
+			,description: locale['services[38]']
 			,url: '___'
 			,type: 'custom'
 			,allow_popups: true
@@ -151,7 +152,7 @@ Ext.define('Rambox.store.ServicesList', {
 			,name: 'WordPress'
 			,description: 'Add a custom service if is not listed above.'
 			,url: 'https://parteiderhumanisten.de/wp2/wp-admin'
-			,type: 'mitarbeiter'
+			,type: 'pdh-presse'
 			,allow_popups: true
 			,editable: false
 			,align: 'right'
@@ -162,7 +163,7 @@ Ext.define('Rambox.store.ServicesList', {
 			,name: 'Reddit'
 			,description: 'Add a custom service if is not listed above.'
 			,url: 'https://reddit.com/r/diehumanisten/'
-			,type: 'mitarbeiter'
+			,type: 'pdh-presse'
 			,editable: false
 		},
 		{
@@ -178,12 +179,12 @@ Ext.define('Rambox.store.ServicesList', {
 			id: 'roundcube'
 			,logo: 'roundcube.png'
 			,name: 'Webmail'
-			,description: 'Free and open source webmail software for the masses, written in PHP.'
+			,description: locale['services[42]']
 			,url: 'https://webmail.df.eu/roundcube/'
-			,editable: false
 			,type: 'mitarbeiter'
 			,align: 'right'
 			,js_unread: 'Element.prototype.remove=function(){this.parentElement.removeChild(this)},NodeList.prototype.remove=HTMLCollection.prototype.remove=function(){for(var e=this.length-1;e>=0;e--)this[e]&&this[e].parentElement&&this[e].parentElement.removeChild(this[e])},document.getElementsByClassName("owa-banner").remove(),document.getElementsByTagName("footer").remove(),document.getElementsByTagName("aside").remove(),document.getElementsByTagName("h1").remove();'
+			,editable: false
 		},
 		// {
 		// 	id: 'hootsuite'

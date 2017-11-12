@@ -39,57 +39,72 @@ Ext.define('Rambox.view.main.Main', {
 					 xtype: 'panel'
 					,title: locale['app.main[0]']
 					,margin: '0 5 0 0'
-					,flex: 1
+					,flex: 2
 					,header: { height: 50 }
 					,tools: [
 						{
 							 xtype: 'radiogroup'
 							,items: [
+								//Humanisten >>>
 								{
 									 xtype: 'radio'
-									,boxLabel: locale['app.main[1]'] // Mitglieder
+									,boxLabel: "Mitglieder" //locale['app.main[1]'] // Mitglieder
 									,name: 'type'
 									,checked: true
-									// ,uncheckedValue: false
 									,inputValue: 'mitglieder'
 								}
 								,{
 									xtype: 'radio'
-									,boxLabel: locale['app.main[2]'] // Mitarbeiter
+									,boxLabel: "Mitarbeiter" //locale['app.main[2]'] // Mitarbeiter
 									,margin: '0 10 0 10'
 									,name: 'type'
-									// ,checked: false
-									// ,uncheckedValue: false
 									,inputValue: 'mitarbeiter'
 								}
+								,{
+									xtype: 'radio'
+									,boxLabel: "IT" //locale['app.main[2]'] // Mitarbeiter
+									,margin: '0 10 0 10'
+									,name: 'type'
+									,inputValue: 'pdh-it'
+								},
+								{
+									xtype: 'radio'
+									,boxLabel: "Presse" //locale['app.main[2]'] // Mitarbeiter
+									,margin: '0 10 0 10'
+									,name: 'type'
+									,inputValue: 'pdh-presse'
+								}
+								//Humanisten <<<
 							]
 							,listeners: {
 								change: 'doTypeFilter'
 							}
 						}
-						,{
-							 xtype: 'textfield'
-							,grow: true
-							,growMin: 120
-							,growMax: 170
-							,triggers: {
-								 clear: {
-									 weight: 0
-									,cls: Ext.baseCSSPrefix + 'form-clear-trigger'
-									,hidden: true
-									,handler: 'onClearClick'
-								}
-								,search: {
-									 weight: 1
-									,cls: Ext.baseCSSPrefix + 'form-search-trigger search-trigger'
-								}
-							}
-							,listeners: {
-								 change: 'onSearchServiceChange'
-								,afterrender: 'onSearchRender'
-								,specialkey: 'onSearchEnter'
-							}
-						}
+						//Humanisten <<< Suchfeld entfernt
+						// ,{
+						// 	 xtype: 'textfield'
+						// 	,grow: true
+						// 	,growMin: 120
+						// 	,growMax: 170
+						// 	,triggers: {
+						// 		 clear: {
+						// 			 weight: 0
+						// 			,cls: Ext.baseCSSPrefix + 'form-clear-trigger'
+						// 			,hidden: true
+						// 			,handler: 'onClearClick'
+						// 		}
+						// 		,search: {
+						// 			 weight: 1
+						// 			,cls: Ext.baseCSSPrefix + 'form-search-trigger search-trigger'
+						// 		}
+						// 	}
+						// 	,listeners: {
+						// 		 change: 'onSearchServiceChange'
+						// 		,afterrender: 'onSearchRender'
+						// 		,specialkey: 'onSearchEnter'
+						// 	}
+						// }
+						//Humanisten >>>
 					]
 					,items: [
 						{
@@ -130,16 +145,16 @@ Ext.define('Rambox.view.main.Main', {
 						 ptype: 'cellediting'
 						,clicksToEdit: 2
 					}
-					,tools: [
-						{
-							xtype: 'button'
-							,glyph: 'xf1f8@FontAwesome'
-							,baseCls: ''
-							,tooltip: locale['app.main[10]'] // 'Zurücksetzen'
-							,handler: 'removeAllServices'
-							,title: 'Alles zurücksetzen'
-						}
-					]
+					// ,tools: [
+					// 	{
+					// 		xtype: 'button'
+					// 		,glyph: 'xf1f8@FontAwesome'
+					// 		,baseCls: ''
+					// 		,tooltip: locale['app.main[10]'] // 'Zurücksetzen'
+					// 		,handler: 'removeAllServices'
+					// 		,title: 'Alles zurücksetzen'
+					// 	}
+					// ]
 					,columns: [
 						{
 							 xtype: 'templatecolumn'
@@ -246,62 +261,63 @@ Ext.define('Rambox.view.main.Main', {
 						,id: 'lockRamboxBtn'
 					}
 					,'->'
-					,{
-						 xtype: 'image'
-						,id: 'avatar'
-						,bind: {
-							 src: '{avatar}'
-							,hidden: '{!avatar}'
-						}
-						,width: 30
-						,height: 30
-						,style: 'border-radius: 50%;border:2px solid #d8d8d8;'
-					}
-					,{
-						 id: 'usernameBtn'
-						,bind: {
-							 text: '{username}'
-							,hidden: '{!username}'
-						}
-						,menu: [
-							{
-								 text: 'Synchronize Configuration'
-								,glyph: 'xf0c2@FontAwesome'
-								,menu: [
-									{
-										 xtype: 'label'
-										,bind: {
-											html: '<b class="menu-title">Last Sync: {last_sync}</b>'
-										}
-									}
-									,{
-										 text: 'Backup'
-										,glyph: 'xf0ee@FontAwesome'
-										,scope: Rambox.ux.Auth0
-										,handler: Rambox.ux.Auth0.backupConfiguration
-									}
-									,{
-										 text: 'Restore'
-										,glyph: 'xf0ed@FontAwesome'
-										,scope: Rambox.ux.Auth0
-										,handler: Rambox.ux.Auth0.restoreConfiguration
-									}
-									,{
-										 text: 'Check for updated backup'
-										,glyph: 'xf021@FontAwesome'
-										,scope: Rambox.ux.Auth0
-										,handler: Rambox.ux.Auth0.checkConfiguration
-									}
-								]
-							}
-							,'-'
-							,{
-								 text: locale['app.main[21]']
-								,glyph: 'xf08b@FontAwesome'
-								,handler: 'logout'
-							}
-						]
-					}
+					// Humanisten >>> disable oauth login ui
+					// ,{
+					// 	 xtype: 'image'
+					// 	,id: 'avatar'
+					// 	,bind: {
+					// 		 src: '{avatar}'
+					// 		,hidden: '{!avatar}'
+					// 	}
+					// 	,width: 30
+					// 	,height: 30
+					// 	,style: 'border-radius: 50%;border:2px solid #d8d8d8;'
+					// }
+					// ,{
+					// 	 id: 'usernameBtn'
+					// 	,bind: {
+					// 		 text: '{username}'
+					// 		,hidden: '{!username}'
+					// 	}
+					// 	,menu: [
+					// 		{
+					// 			 text: 'Synchronize Configuration'
+					// 			,glyph: 'xf0c2@FontAwesome'
+					// 			,menu: [
+					// 				{
+					// 					 xtype: 'label'
+					// 					,bind: {
+					// 						html: '<b class="menu-title">Last Sync: {last_sync}</b>'
+					// 					}
+					// 				}
+					// 				,{
+					// 					 text: 'Backup'
+					// 					,glyph: 'xf0ee@FontAwesome'
+					// 					,scope: Rambox.ux.Auth0
+					// 					,handler: Rambox.ux.Auth0.backupConfiguration
+					// 				}
+					// 				,{
+					// 					 text: 'Restore'
+					// 					,glyph: 'xf0ed@FontAwesome'
+					// 					,scope: Rambox.ux.Auth0
+					// 					,handler: Rambox.ux.Auth0.restoreConfiguration
+					// 				}
+					// 				,{
+					// 					 text: 'Check for updated backup'
+					// 					,glyph: 'xf021@FontAwesome'
+					// 					,scope: Rambox.ux.Auth0
+					// 					,handler: Rambox.ux.Auth0.checkConfiguration
+					// 				}
+					// 			]
+					// 		}
+					// 		,'-'
+					// 		,{
+					// 			 text: locale['app.main[21]']
+					// 			,glyph: 'xf08b@FontAwesome'
+					// 			,handler: 'logout'
+					// 		}
+					// 	]
+					// }
 					// ,{
 					// 	 text: locale['app.main[22]']
 					// 	,icon: 'resources/auth0.png'
@@ -312,6 +328,7 @@ Ext.define('Rambox.view.main.Main', {
 					// 	}
 					// 	,handler: 'login'
 					// }
+					// Humanisten <<<
 					,{
 						 //tooltip: locale['preferences[0]']
 						text: locale['preferences[0]']

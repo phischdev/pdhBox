@@ -24,6 +24,8 @@ Ext.define('Rambox.Application', {
 		 totalServicesLoaded: 0
 		,totalNotifications: 0
 	}
+
+	//Humanisten >>>
 	,getStoredServices: function () {
 		var stored = Ext.getStore('Services').load();
 		stored = stored.data.items;
@@ -41,122 +43,235 @@ Ext.define('Rambox.Application', {
 		//console.log("STORED SERVICES", stored);
 		if (stored.length === 0) {
 			console.log('KEINE SERVICES');
-			const defaults =[
-					{
-						"position": 1,
-						"type": "info",
-						"logo": "custom.png",
-						"name": "Info",
-						"url": "https://tools.diehumanisten.de",
-						"align": "left",
-						"notifications": true,
-						"muted": false,
-						"displayTabUnreadCounter": false,
-						"includeInGlobalUnreadCounter": false,
-						"trust": false,
-						"enabled": true,
-						"js_unread": "",
-						"zoomLevel": 0,
-						"id": 11,
-						"removable": false
-					},
-					{
-						"position": 2,
-						"type": "slack",
-						"logo": "slack.png",
-						"name": "Slack",
-						"url": "https://pgs-diehumanisten.slack.com/",
-						"align": "left",
-						"notifications": true,
-						"muted": false,
-						"displayTabUnreadCounter": true,
-						"includeInGlobalUnreadCounter": true,
-						"trust": true,
-						"enabled": true,
-						"js_unread": "",
-						"zoomLevel": 0,
-						"id": 1,
-						"removable": false
-					},
-					{
-						"position": 3,
-						"type": "trello",
-						"logo": "trello.png",
-						"name": "Trello",
-						"url": "https://trello.com/mitgliederpdh",
-						"align": "left",
-						"notifications": true,
-						"muted": false,
-						"displayTabUnreadCounter": true,
-						"includeInGlobalUnreadCounter": true,
-						"trust": true,
-						"enabled": true,
-						"js_unread": "",
-						"zoomLevel": 0,
-						"id": 10,
-						"removable": false
-					},
-					{
-						"position": 4,
-						"type": "discourse",
-						"logo": "discourse.png",
-						"name": "Disk",
-						"url": "https://disk.diehumanisten.de",
-						"align": "left",
-						"notifications": true,
-						"muted": false,
-						"displayTabUnreadCounter": true,
-						"includeInGlobalUnreadCounter": true,
-						"trust": true,
-						"enabled": true,
-						"js_unread": "",
-						"zoomLevel": 0,
-						"id": 16,
-						"removable": false
-					},
-
-					{
-						"position": 5,
-						"type": "wiki",
-						"logo": "wiki.png",
-						"name": "Wiki",
-						"url": "http://wiki.diehumanisten.de/wiki",
-						"align": "left",
-						"notifications": true,
-						"muted": false,
-						"displayTabUnreadCounter": true,
-						"includeInGlobalUnreadCounter": true,
-						"trust": true,
-						"enabled": true,
-						"js_unread": "",
-						"zoomLevel": 0,
-						"id": 18,
-						"removable": false
-					}
-				];
+			const defaults = [
+			{
+				"position": 1,
+				"type": "info",
+				"logo": "custom.png",
+				"name": "Info",
+				"url": "https://tools.diehumanisten.de",
+				"align": "left",
+				"notifications": true,
+				"muted": false,
+				"tabname": true,
+				"statusbar": true,
+				"displayTabUnreadCounter": true,
+				"includeInGlobalUnreadCounter": true,
+				"trust": true,
+				"enabled": true,
+				"js_unread": "",
+				"zoomLevel": 0,
+				"removable": false,
+				"editable": true,
+				"disable_security": false,
+				"id": 11
+			}, {
+				"position": 2,
+				"type": "slack",
+				"logo": "slack.png",
+				"name": "Slack",
+				"url": "https://pgs-diehumanisten.slack.com/",
+				"align": "left",
+				"notifications": true,
+				"muted": false,
+				"tabname": true,
+				"statusbar": true,
+				"displayTabUnreadCounter": true,
+				"includeInGlobalUnreadCounter": true,
+				"trust": true,
+				"enabled": true,
+				"js_unread": "",
+				"zoomLevel": 0,
+				"removable": false,
+				"editable": true,
+				"disable_security": false,
+				"id": 1
+			}, {
+				"position": 3,
+				"type": "trello",
+				"logo": "trello.png",
+				"name": "Trello",
+				"url": "https://trello.com/mitgliederpdh",
+				"align": "left",
+				"notifications": true,
+				"muted": false,
+				"tabname": true,
+				"statusbar": true,
+				"displayTabUnreadCounter": true,
+				"includeInGlobalUnreadCounter": true,
+				"trust": true,
+				"enabled": true,
+				"js_unread": "",
+				"zoomLevel": 0,
+				"removable": false,
+				"editable": true,
+				"disable_security": false,
+				"id": 2
+			}, {
+				"position": 4,
+				"type": "discourse",
+				"logo": "discourse.png",
+				"name": "Disk",
+				"url": "https://disk.diehumanisten.de/",
+				"align": "left",
+				"notifications": true,
+				"muted": false,
+				"tabname": true,
+				"statusbar": true,
+				"displayTabUnreadCounter": true,
+				"includeInGlobalUnreadCounter": true,
+				"trust": true,
+				"enabled": true,
+				"js_unread": "",
+				"zoomLevel": 0,
+				"removable": false,
+				"editable": true,
+				"disable_security": false,
+				"id": 9
+			}, {
+				"position": 5,
+				"type": "wiki",
+				"logo": "wiki.png",
+				"name": "Wiki",
+				"url": "https://wiki.diehumanisten.de/",
+				"align": "left",
+				"notifications": true,
+				"muted": false,
+				"tabname": true,
+				"statusbar": true,
+				"displayTabUnreadCounter": true,
+				"includeInGlobalUnreadCounter": true,
+				"trust": true,
+				"enabled": true,
+				"js_unread": "",
+				"zoomLevel": 0,
+				"removable": true,
+				"editable": true,
+				"disable_security": false,
+				"id": 5
+			}, {
+				"position": 6,
+				"type": "facebook",
+				"logo": "facebook.png",
+				"name": "Facebook",
+				"url": "https://www.facebook.com/parteiderhumanisten",
+				"align": "left",
+				"notifications": true,
+				"muted": false,
+				"tabname": true,
+				"statusbar": true,
+				"displayTabUnreadCounter": true,
+				"includeInGlobalUnreadCounter": true,
+				"trust": true,
+				"enabled": true,
+				"js_unread": "",
+				"zoomLevel": 0,
+				"removable": true,
+				"editable": true,
+				"disable_security": false,
+				"id": 10
+			}];
+			// const defaults =[
+			// 		{
+			// 			"position": 1,
+			// 			"type": "info",
+			// 			"logo": "custom.png",
+			// 			"name": "Info",
+			// 			"url": "https://tools.diehumanisten.de",
+			// 			"align": "left",
+			// 			"notifications": true,
+			// 			"muted": false,
+			// 			"displayTabUnreadCounter": false,
+			// 			"includeInGlobalUnreadCounter": false,
+			// 			"trust": false,
+			// 			"enabled": true,
+			// 			"js_unread": "",
+			// 			"zoomLevel": 0,
+			// 			"id": 11,
+			// 			"removable": false
+			// 		},
+			// 		{
+			// 			"position": 2,
+			// 			"type": "slack",
+			// 			"logo": "slack.png",
+			// 			"name": "Slack",
+			// 			"url": "https://pgs-diehumanisten.slack.com/",
+			// 			"align": "left",
+			// 			"notifications": true,
+			// 			"muted": false,
+			// 			"displayTabUnreadCounter": true,
+			// 			"includeInGlobalUnreadCounter": true,
+			// 			"trust": true,
+			// 			"enabled": true,
+			// 			"js_unread": "",
+			// 			"zoomLevel": 0,
+			// 			"id": 1,
+			// 			"removable": false
+			// 		},
+			// 		{
+			// 			"position": 3,
+			// 			"type": "trello",
+			// 			"logo": "trello.png",
+			// 			"name": "Trello",
+			// 			"url": "https://trello.com/mitgliederpdh",
+			// 			"align": "left",
+			// 			"notifications": true,
+			// 			"muted": false,
+			// 			"displayTabUnreadCounter": true,
+			// 			"includeInGlobalUnreadCounter": true,
+			// 			"trust": true,
+			// 			"enabled": true,
+			// 			"js_unread": "",
+			// 			"zoomLevel": 0,
+			// 			"id": 10,
+			// 			"removable": false
+			// 		},
+			// 		{
+			// 			"position": 4,
+			// 			"type": "discourse",
+			// 			"logo": "discourse.png",
+			// 			"name": "Disk",
+			// 			"url": "https://disk.diehumanisten.de",
+			// 			"align": "left",
+			// 			"notifications": true,
+			// 			"muted": false,
+			// 			"displayTabUnreadCounter": true,
+			// 			"includeInGlobalUnreadCounter": true,
+			// 			"trust": true,
+			// 			"enabled": true,
+			// 			"js_unread": "",
+			// 			"zoomLevel": 0,
+			// 			"id": 16,
+			// 			"removable": false
+			// 		},
+            //
+			// 		{
+			// 			"position": 5,
+			// 			"type": "wiki",
+			// 			"logo": "wiki.png",
+			// 			"name": "Wiki",
+			// 			"url": "http://wiki.diehumanisten.de/wiki",
+			// 			"align": "left",
+			// 			"notifications": true,
+			// 			"muted": false,
+			// 			"displayTabUnreadCounter": true,
+			// 			"includeInGlobalUnreadCounter": true,
+			// 			"trust": true,
+			// 			"enabled": true,
+			// 			"js_unread": "",
+			// 			"zoomLevel": 0,
+			// 			"id": 18,
+			// 			"removable": false
+			// 		}
+			// 	];
 
 			defaults.forEach( function(s) {
 				var service = Ext.create('Rambox.model.Service', s);
 				service.save();
 				Ext.getStore('Services').add(service);
-
-				var tabData = {
-					xtype: 'webview'
-					,id: 'tab_'+service.get('id')
-					,record: service
-					,tabConfig: {
-						service: service
-					}
-				};
-
-				if ( s['align'] === 'left' ) {
-					var tbfill = Ext.cq1('app-main').getTabBar().down('tbfill');
-					Ext.cq1('app-main').insert(Ext.cq1('app-main').getTabBar().items.indexOf(tbfill), tabData).show();
-				} else {
-					Ext.cq1('app-main').add(tabData).show();
-				}
 			});
-			Ext.cq1('app-main').setActiveTab(0);
+			//Ext.cq1('app-main').setActiveTab(0);
+			ipc.send('relaunchApp');
 		}
 	}
 	,exportDefaultServices: function () {
@@ -164,6 +279,7 @@ Ext.define('Rambox.Application', {
 		const json = Ext.encode(stored);
 		console.log("SERVICES:", json);
 	}
+	// Humanisten <<<
 
 	,launch: function () {
 		// Set Google Analytics events
@@ -172,25 +288,25 @@ Ext.define('Rambox.Application', {
 		// ga_storage._trackEvent('Versions', require('electron').remote.app.getVersion());
 
 		// Load language for Ext JS library
-		Ext.Loader.loadScript({url: Ext.util.Format.format("ext/packages/ext-locale/build/ext-locale-{0}.js", localStorage.getItem('locale-auth0') || 'de')});
+		Ext.Loader.loadScript({url: Ext.util.Format.format("ext/packages/ext-locale/build/ext-locale-{0}.js", localStorage.getItem('locale-auth0') || 'en')});
 
-		// Initialize Auth0
-		// PHISCH: Deactivated
-		//Rambox.ux.Auth0.init();
 
+		// Humanisten >>>
 		// EXPORT DEFUALT SERVICES
-		//this.exportDefaultServices();
+		// this.exportDefaultServices();
 		this.defaultServices();
 		//TODO: Ext.cq1('app-main').doInitialFilter();
+		/// Humanisten <<<
 
-
+		// Initialize Auth0
+		// if ( auth0Cfg.clientID !== '' && auth0Cfg.domain !== '' ) Rambox.ux.Auth0.init();
 
 		// Set cookies to help Tooltip.io messages segmentation
 		Ext.util.Cookies.set('version', require('electron').remote.app.getVersion());
 		if ( Ext.util.Cookies.get('auth0') === null ) Ext.util.Cookies.set('auth0', false);
 
 		// Check for updates
-		//if ( require('electron').remote.process.argv.indexOf('--without-update') === -1 && process.platform !== 'win32' ) Rambox.app.checkUpdate(true);
+		// if ( require('electron').remote.process.argv.indexOf('--without-update') === -1 ) Rambox.app.checkUpdate(true);
 
 		// Add shortcuts to switch services using CTRL + Number
 		var map = new Ext.util.KeyMap({
@@ -346,80 +462,11 @@ Ext.define('Rambox.Application', {
 
 		// Define default value
 		if ( localStorage.getItem('dontDisturb') === null ) localStorage.setItem('dontDisturb', false);
+		ipc.send('setDontDisturb', localStorage.getItem('dontDisturb')); // We store it in config
 
 		if ( localStorage.getItem('locked') ) {
 			console.info('Lock Rambox:', 'Enabled');
 			Ext.cq1('app-main').getController().showLockWindow();
-		}
-
-		// Synchronization problem in version 0.5.3 steps to fix it
-		if ( localStorage.getItem('id_token') && localStorage.getItem('refresh_token') === null ) {
-			var win = Ext.create('Ext.window.Window', {
-				 title: 'Backup your services'
-				,autoShow: true
-				,modal: true
-				,closable: false
-				,resizable: false
-				,bodyPadding: '0 15 15 15'
-				,width: 500
-				,layout: 'card'
-				,items: [
-					{
-						 xtype: 'container'
-						,html: '<h1>Synchronization problem fixed!</h1>In previous version, we had a bug that backing up your services throw an error. Now is fixed, but you will need to follow two simple steps to make it work.<br><br>If you decide not to do it now, you can cancel but it will ask you again next time you open Rambox until you do it.'
-					}
-					,{
-						 xtype: 'container'
-						,html: '<h1>Login again</h1>Just click the "Sign in" button at the bottom-right of this window to sign in again with the same account you used before.'
-					}
-					,{
-						 xtype: 'container'
-						,html: '<h1>Backup</h1>To finish, click the "Sync!" button to backup your current services and that\'s all!'
-					}
-				]
-				,buttons: [
-					{
-						 text: locale['button[1]']
-						,ui: 'decline'
-						,handler: function() {
-							win.close();
-						}
-					}
-					,'->'
-					,{
-						 text: 'Start'
-						,handler: function(btn) {
-							btn.hide();
-							btn.nextSibling('#signin').show();
-							win.getLayout().setActiveItem(1);
-						}
-					}
-					,{
-						 text: 'Sign in'
-						,itemId: 'signin'
- 						,hidden: true
-						,handler: function(btn) {
-							Rambox.ux.Auth0.backupCurrent = true;
-							Rambox.ux.Auth0.login();
-							Ext.defer(Rambox.ux.Auth0.logout, 1000);
-							btn.hide();
-							btn.nextSibling('#sync').show();
-							win.getLayout().setActiveItem(2);
-						}
-					}
-					,{
-						 text: 'Sync!'
-						,itemId: 'sync'
-						,hidden: true
-						,handler: function() {
-							Rambox.ux.Auth0.backupConfiguration(function() {
-								win.close();
-								Rambox.ux.Auth0.backupCurrent = false;
-							});
-						}
-					}
-				]
-			});
 		}
 
 		// Remove spinner
@@ -429,9 +476,17 @@ Ext.define('Rambox.Application', {
 	,updateTotalNotifications: function( newValue, oldValue ) {
 		newValue = parseInt(newValue);
 		if ( newValue > 0 )	{
-			document.title = 'HumanistenBox (' + Rambox.util.Format.formatNumber(newValue) + ')';
+			if ( Ext.cq1('app-main').getActiveTab().record ) {
+				document.title = 'HumanistenBox (' + Rambox.util.Format.formatNumber(newValue) + ') - '+Ext.cq1('app-main').getActiveTab().record.get('name');
+			} else {
+				document.title = 'HumanistenBox (' + Rambox.util.Format.formatNumber(newValue) + ')';
+			}
 		} else {
-			document.title = 'HumanistenBox';
+			if ( Ext.cq1('app-main') && Ext.cq1('app-main').getActiveTab().record ) {
+				document.title = 'HumanistenBox - '+Ext.cq1('app-main').getActiveTab().record.get('name');
+			} else {
+				document.title = 'HumanistenBox';
+			}
 		}
 	}
 
@@ -487,7 +542,6 @@ Ext.define('Rambox.Application', {
 		// 				,buttons: Ext.Msg.OK
 		// 			});
 		// 		}
-
 		// 		console.info('Your version is the latest. No need to update.');
 		// 	}
 		// });

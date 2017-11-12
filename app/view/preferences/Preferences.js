@@ -38,6 +38,16 @@ Ext.define('Rambox.view.preferences.Preferences',{
 	,initComponent: function() {
 		var config = ipc.sendSync('getConfig');
 
+		var defaultServiceOptions = [];
+		defaultServiceOptions.push({ value: 'ramboxTab', label: 'Rambox Tab' });
+		defaultServiceOptions.push({ value: 'last', label: 'Last Active Service' });
+		Ext.getStore('Services').each(function(rec) {
+			defaultServiceOptions.push({
+				 value: rec.get('id')
+				,label: rec.get('name')
+			});
+		});
+
 		this.items = [
 			{
 				 xtype: 'form'
@@ -98,7 +108,23 @@ Ext.define('Rambox.view.preferences.Preferences',{
 						,name: 'hide_menu_bar'
 						,boxLabel: locale['preferences[1]']+' (<code>Alt</code> key to display)'
 						,value: config.hide_menu_bar
-						,hidden: process.platform !== 'win32'
+						,hidden: process.platform === 'darwin'
+					}
+					,{
+						 xtype: 'combo'
+						,name: 'default_service'
+						,fieldLabel: 'Default service to display when Rambox starts'
+						,labelAlign: 'top'
+						//,width: 380
+						//,labelWidth: 105
+						,value: config.default_service
+						,displayField: 'label'
+						,valueField: 'value'
+						,editable: false
+						,store: Ext.create('Ext.data.Store', {
+							 fields: ['value', 'label']
+							,data: defaultServiceOptions
+						})
 					}
 					,{
 						 xtype: 'combo'
@@ -136,7 +162,7 @@ Ext.define('Rambox.view.preferences.Preferences',{
 							 fields: ['value', 'label']
 							,data: [
 								 { 'value': 'keep_in_tray', 'label': 'Keep in tray' }
-								,{ 'value': 'keep_in_tray_and_taskbar', 'label': 'Keep in tray and taskbar' }
+								,{ 'value': 'keep_in_tray_and_taskbar', 'label': 'Keep in tray and/or taskbar' }
 								,{ 'value': 'quit', 'label': 'Quit' }
 							]
 						})
@@ -157,9 +183,21 @@ Ext.define('Rambox.view.preferences.Preferences',{
 					}
 					,{
 						 xtype: 'checkbox'
+						,name: 'flash_frame'
+						,boxLabel: process.platform === 'darwin' ? locale['preferences[10]'] : locale['preferences[9]']
+						,value: config.flash_frame
+					}
+					,{
+						 xtype: 'checkbox'
 						,name: 'disable_gpu'
 						,boxLabel: 'Disable Hardware Acceleration (needs to relaunch)'
 						,value: config.disable_gpu
+					}
+					,{
+						 xtype: 'checkbox'
+						,name: 'enable_hidpi_support'
+						,boxLabel: locale['preferences[8]']
+						,value: config.enable_hidpi_support
 					}
 					,{
 						 xtype: 'fieldset'

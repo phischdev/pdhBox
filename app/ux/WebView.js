@@ -9,6 +9,7 @@ Ext.define('Rambox.ux.WebView',{
 		 'Rambox.util.Format'
 		,'Rambox.util.Notifier'
 		,'Rambox.util.UnreadCounter'
+		,'Rambox.util.IconLoader'
 	]
 
 	// private
@@ -166,9 +167,9 @@ Ext.define('Rambox.ux.WebView',{
 				,padding: 100
 			};
 		} else {
-			const disable_security = me.record.get('disable_security');
-			if (disable_security)
-				console.log("disabled security for", me.record.get('type'));
+			// const disable_security = me.record.get('disable_security');
+			// if (disable_security)
+			// 	console.log("disabled security for", me.record.get('type'));
 			cfg = [{
 				 xtype: 'component'
 				,hideMode: 'offsets'
@@ -182,18 +183,15 @@ Ext.define('Rambox.ux.WebView',{
 					,partition: 'persist:' + me.record.get('type') + '_' + me.id.replace('tab_', '') + (localStorage.getItem('id_token') ? '_' + Ext.decode(localStorage.getItem('profile')).user_id : '')
 					,plugins: 'true'
 					,allowtransparency: 'on'
-					,allowpopups: true
 					,autosize: 'on'
-					,disablewebsecurity: disable_security
-					//,webpreferences: 'nodeIntegration=no'
+					,webpreferences: 'allowRunningInsecureContent=yes' //,nativeWindowOpen=yes
 					//,disablewebsecurity: 'on' // Disabled because some services (Like Google Drive) dont work with this enabled
 					,useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
 					,preload: './resources/js/rambox-service-api.js'
 				}
 			}];
-			const allowPopups = Ext.getStore('ServicesList').getById(me.record.get('type')).get('allow_popups');
-			//if ( allowPopups ) cfg[0].autoEl.allowpopups = 'on';
-			console.log(me.record.get('name'), allowPopups)
+
+			if ( Ext.getStore('ServicesList').getById(me.record.get('type')).get('allow_popups') ) cfg[0].autoEl.allowpopups = 'on';
 		}
 
 		return cfg;
@@ -217,21 +215,21 @@ Ext.define('Rambox.ux.WebView',{
 					 xtype: 'tbtext'
 					,itemId: 'url'
 				}
-
-				// ,{
-				// 	 xtype: 'button'
-				// 	,glyph: 'xf0c5@FontAwesome'
-				// 	,scale: 'small'
-				// 	,ui: 'decline'
-				// 	,padding: 0
-				// 	,scope: me
-				// 	,hidden: floating
-				// 	,handler: me.copyLink
-				// 	,tooltip: {
-				// 		 text: 'Link kopieren'
-				// 		,mouseOffset: [0,-60]
-				// 	}
-				// }
+				,{
+					 xtype: 'button'
+					,glyph: 'xf00d@FontAwesome'
+					,scale: 'small'
+					,ui: 'decline'
+					,padding: 0
+					,scope: me
+					,disabled: true
+					,hidden: floating
+					,handler: me.closeStatusBar
+					,tooltip: {
+						 text: 'Close statusbar until next time'
+						,mouseOffset: [0,-60]
+					}
+				}
 			]
 		};
 	}
@@ -256,14 +254,12 @@ Ext.define('Rambox.ux.WebView',{
 		me.setNotifications(localStorage.getItem('locked') || JSON.parse(localStorage.getItem('dontDisturb')) ? false : me.record.get('notifications'));
 
 		// Show and hide spinner when is loading
-		webview.addEventListener("did-start-loading", function(e) {
-			//console.info('Start loading...', me.src);
+		webview.addEventListener("did-start-loading", function() {
+			console.info('Start loading...', me.src);
 			if ( !me.down('statusbar').closed || !me.down('statusbar').keep ) me.down('statusbar').show();
 			me.down('statusbar').showBusy();
-			//console.log("did-start", e);
 		});
-
-		webview.addEventListener("did-stop-loading", function(e) {
+		webview.addEventListener("did-stop-loading", function() {
 			me.down('statusbar').clearStatus({useDefaults: true});
 			if ( !me.down('statusbar').keep ) me.down('statusbar').hide();
 			//console.log("did-stop", e);
@@ -274,260 +270,28 @@ Ext.define('Rambox.ux.WebView',{
 			//console.log("did-finish", e);
 			// Apply saved zoom level
 			webview.setZoomLevel(me.record.get('zoomLevel'));
+
+			// Set special icon for some service (like Slack)
+			Rambox.util.IconLoader.loadServiceIconUrl(me, webview);
 		});
 
 		// Open links in default browser
 		webview.addEventListener('new-window', function(e) {
-			console.log("default prevented:", e.defaultPrevented);
-
-				switch (me.type) {
-				case 'likeshare':
-					console.log('like & share, facebook');
-					return;
-				case 'discourse':
-					console.log("from DISK");
-					if (e.url.indexOf('auth/facebook?display=popup') > 0) {
-						// console.log("facebookauth");
-						// me.add({
-						// 	xtype: 'window'
-						// 	, title: 'Anmelden mit Facebook'
-						// 	, width: '80%'
-						// 	, height: '80%'
-						// 	, maximizable: true
-						// 	, modal: true
-						// 	, items: {
-						// 		xtype: 'component'
-						// 		, hideMode: 'offsets'
-						// 		, autoRender: true
-						// 		, autoShow: true
-						// 		, autoEl: {
-						// 			tag: 'webview'
-						// 			,
-						// 			src: e.url
-						// 			,
-						// 			style: 'width:100%;height:100%;'
-						// 			//,partition: 'persist:' + me.record.get('type') + '_' + me.id.replace('tab_', '') + (localStorage.getItem('id_token') ? '_' + Ext.decode(localStorage.getItem('profile')).user_id : '')
-						// 			,
-						// 			useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
-						// 		}
-						// 	}
-						// }).show();
-						// e.preventDefault();
-						return;
-					}
-				case 'skype':
-					// hack to fix multiple browser tabs on Skype link click, re #11
-					if (e.url.match('https:\/\/web.skype.com\/..\/undefined')) {
-						e.preventDefault();
-						return;
-					} else if (e.url.indexOf('imgpsh_fullsize') >= 0) {
-						ipc.send('image:download', e.url, e.target.partition);
-						e.preventDefault();
-						return;
-					}
-					break;
-				case 'hangouts':
-					e.preventDefault();
-					if (e.url.indexOf('plus.google.com/u/0/photos/albums') >= 0) {
-						ipc.send('image:popup', e.url, e.target.partition);
-						return;
-					} else if (e.url.indexOf('https://hangouts.google.com/hangouts/_/CONVERSATION/') >= 0) {
-						me.add({
-							xtype: 'window'
-							, title: 'Video Call'
-							, width: '80%'
-							, height: '80%'
-							, maximizable: true
-							, resizable: true
-							, draggable: true
-							, collapsible: true
-							, items: {
-								xtype: 'component'
-								, hideMode: 'offsets'
-								, autoRender: true
-								, autoShow: true
-								, autoEl: {
-									tag: 'webview'
-									,
-									src: e.url
-									,
-									style: 'width:100%;height:100%;'
-									,
-									partition: 'persist:' + me.record.get('type') + '_' + me.id.replace('tab_', '') + (localStorage.getItem('id_token') ? '_' + Ext.decode(localStorage.getItem('profile')).user_id : '')
-									,
-									useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
-								}
-							}
-						}).show();
-						return;
-					}
-					break;
-				case 'slack2':
-				case 'slack':
-					if (e.url.indexOf('slack.com/call/') >= 0) {
-						me.add({
-							xtype: 'window'
-							, title: e.options.title
-							, width: e.options.width
-							, height: e.options.height
-							, maximizable: true
-							, resizable: true
-							, draggable: true
-							, collapsible: true
-							, items: {
-								xtype: 'component'
-								, hideMode: 'offsets'
-								, autoRender: true
-								, autoShow: true
-								, autoEl: {
-									tag: 'webview'
-									,
-									src: e.url
-									,
-									style: 'width:100%;height:100%;'
-									,
-									partition: e.options.webPreferences.partition
-									,
-									useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
-								}
-							}
-						}).show();
-						console.log("preventing default");
-						e.preventDefault();
-						return;
-					} else if (e.url.indexOf('slack-redir.net/') >= 0) {
-						var uri = e.url.split('url=')[1];
-						uri = decodeURIComponent(uri);
-						e.url = uri;
-					}
-					break;
-				case 'wordpress':
-					// Link to our site
-					if (e.url.indexOf('://parteiderhumanisten.de/wp2/') || e.url.indexOf('://diehumanisten.de/') > 0) {
-						if (e.url.indexOf('?preview=true' > 0)) {
-							console.log("WP Preview");
-							return;
-						}
-					}
-				default:
-					break;
-			}
-			console.log("default prevented:", e.defaultPrevented);
-			if (e.url.match('https?:\/\/files.slack.com\/')) {
-				const partition = e.target.partition;
-				console.log("Downloading file from Slack", e);
-				e.preventDefault();
-				console.log("default prevented:", e.defaultPrevented);
-				// window.open(
-				// 	e.url,
-				// 	"Download",
-				// 	{
-				// 		partition: ""
-				// 	}
-				// 	);
-				//e.preventDefault();
-				e.returnValue = false;
-				e.defaultPrevented = false;
-
-				return;
-			};
-
-			const protocol = require('url').parse(e.url).protocol;
-			if (protocol === 'http:' || protocol === 'https:') {
-				console.log("EXTERN", e);
-
-				var selectType = undefined;
-				if (e.url.match('https?:\/\/(www)?(m)?.facebook.com\/'))
-					selectType = "facebook";
-				else if (e.url.match('https?:\/\/pgs-diehumanisten.slack.com\/'))
-					selectType = "slack";
-				else if (e.url.match('https?:\/\/slack.com\/'))
-					selectType = "slack2";
-				else if (e.url.match('https?:\/\/disk.diehumanisten.de\/'))
-					selectType = "discourse";
-				else if (e.url.match('https?:\/\/wiki.diehumanisten.de\/'))
-					selectType = "wiki";
-				else if (e.url.match('https?:\/\/trello.com\/'))
-					selectType = "trello";
-				else if (e.url.match('https?:\/\/hangouts.google.com\/call\/'))
-					selectType = "hangouts_call";
-				else if (e.url.match('https?:\/\/hangouts.google.com\/'))
-					selectType = "hangouts";
-				else if (e.url.match('https?:\/\/(www.)?reddit.com\/'))
-					selectType = "reddit";
-
-				// Special case Hangouts
-				if (selectType == "hangouts_call")
-				{
-					// open new window
-					console.log("opening new google hangouts window in default browser");
-					// console.log(e);
-					//e.preventDefault();
-					//require('electron').shell.openExternal(e.url);
-
-					return;
-				}
-
-				//console.log(me.record.get('type'), selectType);
-
-				if (selectType !== undefined && me.record.get('type') !== selectType) {
-
-					const tabPanel = Ext.cq1('app-main');
-					var tabs = tabPanel.items.items;
-					console.log("URL:", e.url);
-					console.log("Searching:", selectType);
-					var tab = tabs.filter(function (tab) {
-						if (tab.id === "ramboxTab") return false;
-						if (tab.record && tab.record.data) {
-							const type = tab.record.data['type'];
-
-							return (type === selectType && true);
-						}
-						return false;
-					});
-
-					// Tab exists
-					if (tab.length > 0) {
-						tab = tab[0];
-						const enabled = tab.record.data["enabled"];
-						//console.log(tab);
-						//console.log("enabled", enabled);
-						if (enabled) {
-							//TODO: check if not already there
-							//TODO: check if not standard link
-							const web = tab.down("component").el.dom;
-							web.loadURL(e.url);
-						}
-
-						// Select Tab
-						// var index = tabPanel.items.indexOf(tab);
-						// console.log("index", index);
-						tabPanel.setActiveTab(tab);
-
-						// Stop from opening
-						e.preventDefault();
-						return;
-					}
-				}
-			}
-			// Else
-			console.log("nichts greift");
-			e.preventDefault();
-			require('electron').shell.openExternal(e.url);
+			return me.humanistNewWindow(e);
 		});
 
 		webview.addEventListener('will-navigate', function(e, url) {
 			console.log("wants to navigate");
-			switch (me.type) {
-				case "wiki":
-					if (url.match('https?:\/\/wiki.diehumanisten.de\/')) {
-						// Allow
-						consoloe.log("granted");
-						return;
-					}
-			}
-
-			console.log("Nope. Preventing navigation");
+			// switch (me.type) {
+			// 	case "wiki":
+			// 		if (url.match('https?:\/\/wiki.diehumanisten.de\/')) {
+			// 			// Allow
+			// 			consoloe.log("granted");
+			// 			return;
+			// 		}
+			// }
+            //
+			// console.log("Nope. Preventing navigation");
 			e.preventDefault();
 		});
 
@@ -649,6 +413,272 @@ Ext.define('Rambox.ux.WebView',{
 		});
 	}
 
+	//Humanisten >>>
+	,humanistNewWindow: function (e) {
+	 	var me = this;
+	 	//console.log("default prevented:", e.defaultPrevented);
+
+		switch (me.type) {
+			case 'discourse':
+				console.log("from DISK");
+				if (e.url.indexOf('auth/facebook?display=popup') > 0) {
+					// console.log("facebookauth");
+					// me.add({
+					// 	xtype: 'window'
+					// 	, title: 'Anmelden mit Facebook'
+					// 	, width: '80%'
+					// 	, height: '80%'
+					// 	, maximizable: true
+					// 	, modal: true
+					// 	, items: {
+					// 		xtype: 'component'
+					// 		, hideMode: 'offsets'
+					// 		, autoRender: true
+					// 		, autoShow: true
+					// 		, autoEl: {
+					// 			tag: 'webview'
+					// 			,
+					// 			src: e.url
+					// 			,
+					// 			style: 'width:100%;height:100%;'
+					// 			//,partition: 'persist:' + me.record.get('type') + '_' + me.id.replace('tab_', '') + (localStorage.getItem('id_token') ? '_' + Ext.decode(localStorage.getItem('profile')).user_id : '')
+					// 			,
+					// 			useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
+					// 		}
+					// 	}
+					// }).show();
+					// e.preventDefault();
+					return;
+				}
+			case 'hangouts':
+				e.preventDefault();
+				if (e.url.indexOf('plus.google.com/u/0/photos/albums') >= 0) {
+					ipc.send('image:popup', e.url, e.target.partition);
+					return;
+				} else if ( e.url.indexOf('/el/CONVERSATION/') >= 0 ) {
+					me.add({
+						xtype: 'window'
+						, title: 'Video Call'
+						, width: '80%'
+						, height: '80%'
+						, maximizable: true
+						, resizable: true
+						, draggable: true
+						, collapsible: true
+						, items: {
+							xtype: 'component'
+							, hideMode: 'offsets'
+							, autoRender: true
+							, autoShow: true
+							, autoEl: {
+								tag: 'webview'
+								,
+								src: e.url
+								,
+								style: 'width:100%;height:100%;'
+								,
+								partition: 'persist:' + me.record.get('type') + '_' + me.id.replace('tab_', '') + (localStorage.getItem('id_token') ? '_' + Ext.decode(localStorage.getItem('profile')).user_id : '')
+								,
+								useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
+							}
+							, xtype: 'window'
+							, title: 'Video Call'
+							, width: '80%'
+							, height: '80%'
+							, maximizable: true
+							, resizable: true
+							, draggable: true
+							, collapsible: true
+							, items: {
+								xtype: 'component'
+								, hideMode: 'offsets'
+								, autoRender: true
+								, autoShow: true
+								, autoEl: {
+									tag: 'webview'
+									,
+									src: e.url
+									,
+									style: 'width:100%;height:100%;'
+									,
+									partition: me.getWebView().partition
+									,
+									useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
+								}
+							}
+						}}
+					).show();
+					return;
+				}
+				break;
+			case 'slack2':
+			case 'slack':
+				if (e.url.indexOf('slack.com/call/') >= 0) {
+					me.add({
+						xtype: 'window'
+						, title: e.options.title
+						, width: e.options.width
+						, height: e.options.height
+						, maximizable: true
+						, resizable: true
+						, draggable: true
+						, collapsible: true
+						, items: {
+							xtype: 'component'
+							, hideMode: 'offsets'
+							, autoRender: true
+							, autoShow: true
+							, autoEl: {
+								tag: 'webview'
+								,
+								src: e.url
+								,
+								style: 'width:100%;height:100%;'
+								,
+								partition: e.options.webPreferences.partition
+								,
+								useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
+							},
+							xtype: 'window'
+							, title: e.options.title
+							, width: e.options.width
+							, height: e.options.height
+							, maximizable: true
+							, resizable: true
+							, draggable: true
+							, collapsible: true
+							, items: {
+								xtype: 'component'
+								, hideMode: 'offsets'
+								, autoRender: true
+								, autoShow: true
+								, autoEl: {
+									tag: 'webview'
+									,
+									src: e.url
+									,
+									style: 'width:100%;height:100%;'
+									,
+									partition: me.getWebView().partition
+									,
+									useragent: Ext.getStore('ServicesList').getById(me.record.get('type')).get('userAgent')
+								}
+							}
+						}
+					}).show();
+					console.log("preventing default");
+					e.preventDefault();
+					return;
+				} else if (e.url.indexOf('slack-redir.net/') >= 0) {
+					var uri = e.url.split('url=')[1];
+					uri = decodeURIComponent(uri);
+					e.url = uri;
+				} else if (e.url.match('https?:\/\/files.slack.com\/')) {
+					console.log("Downloading file from Slack", e);
+					e.preventDefault();
+					require('electron').shell.openExternal(e.url);
+					return;
+				}
+				break;
+			case 'wordpress':
+				// Link to our site
+				if (e.url.indexOf('://parteiderhumanisten.de/wp2/') || e.url.indexOf('://diehumanisten.de/') > 0) {
+					if (e.url.indexOf('?preview=true' > 0)) {
+						console.log("WP Preview");
+						return;
+					}
+				}
+			default:
+				break;
+		}
+		console.log("default prevented:", e.defaultPrevented);
+
+
+		const protocol = require('url').parse(e.url).protocol;
+		if (protocol === 'http:' || protocol === 'https:') {
+			console.log("EXTERN", e);
+
+			var selectType = undefined;
+			if (e.url.match('https?:\/\/(www)?(m)?.facebook.com\/'))
+				selectType = "facebook";
+			else if (e.url.match('https?:\/\/pgs-diehumanisten.slack.com\/'))
+				selectType = "slack";
+			else if (e.url.match('https?:\/\/slack.com\/'))
+				selectType = "slack2";
+			else if (e.url.match('https?:\/\/disk.diehumanisten.de\/'))
+				selectType = "discourse";
+			else if (e.url.match('https?:\/\/wiki.diehumanisten.de\/'))
+				selectType = "wiki";
+			else if (e.url.match('https?:\/\/trello.com\/'))
+				selectType = "trello";
+			else if (e.url.match('https?:\/\/hangouts.google.com\/call\/'))
+				selectType = "hangouts_call";
+			else if (e.url.match('https?:\/\/hangouts.google.com\/'))
+				selectType = "hangouts";
+			else if (e.url.match('https?:\/\/(www.)?reddit.com\/'))
+				selectType = "reddit";
+
+			// Special case Hangouts
+			if (selectType == "hangouts_call")
+			{
+				// open new window
+				console.log("opening new google hangouts window in default browser");
+				// console.log(e);
+				//e.preventDefault();
+				//require('electron').shell.openExternal(e.url);
+
+				return;
+			}
+
+			//console.log(me.record.get('type'), selectType);
+
+			if (selectType !== undefined && me.record.get('type') !== selectType) {
+
+				const tabPanel = Ext.cq1('app-main');
+				var tabs = tabPanel.items.items;
+				console.log("URL:", e.url);
+				console.log("Searching:", selectType);
+				var tab = tabs.filter(function (tab) {
+					if (tab.id === "ramboxTab") return false;
+					if (tab.record && tab.record.data) {
+						const type = tab.record.data['type'];
+
+						return (type === selectType && true);
+					}
+					return false;
+				});
+
+				// Tab exists
+				if (tab.length > 0) {
+					tab = tab[0];
+					const enabled = tab.record.data["enabled"];
+					//console.log(tab);
+					//console.log("enabled", enabled);
+					if (enabled) {
+						//TODO: check if not already there
+						//TODO: check if not standard link
+						const web = tab.down("component").el.dom;
+						web.loadURL(e.url);
+					}
+
+					// Select Tab
+					// var index = tabPanel.items.indexOf(tab);
+					// console.log("index", index);
+					tabPanel.setActiveTab(tab);
+
+					// Stop from opening
+					e.preventDefault();
+					return;
+				}
+			}
+		}
+		// Else
+		console.log("nichts greift");
+		e.preventDefault();
+		require('electron').shell.openExternal(e.url);
+	}
+	//Humanisten <<<
+
 	,setUnreadCount: function(newUnreadCount) {
 		var me = this;
 
@@ -762,7 +792,7 @@ Ext.define('Rambox.ux.WebView',{
 	,setStatusBar: function(keep) {
 		var me = this;
 
-		me.down('statusbar').destroy();
+		me.removeDocked(me.down('statusbar'), true);
 
 		if ( keep ) {
 			me.addDocked(me.statusBarConstructor(false));
@@ -845,6 +875,14 @@ Ext.define('Rambox.ux.WebView',{
 		if ( me.record.get('enabled') ) {
 			webview.setZoomLevel(0);
 			me.record.set('zoomLevel', me.zoomLevel);
+		}
+	}
+
+	,getWebView: function() {
+		if ( this.record.get('enabled') ) {
+			return this.down('component').el.dom;
+		} else {
+			return false;
 		}
 	}
 });
