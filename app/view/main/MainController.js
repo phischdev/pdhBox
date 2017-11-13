@@ -14,9 +14,9 @@ Ext.define('Rambox.view.main.MainController', {
 
 		if ( newTab.id === 'ramboxTab' ) {
 			if ( Rambox.app.getTotalNotifications() > 0 ) {
-				document.title = 'Rambox ('+ Rambox.app.getTotalNotifications() +')';
+				document.title = 'HumanistenBox ('+ Rambox.app.getTotalNotifications() +')';
 			} else {
-				document.title = 'Rambox';
+				document.title = 'HumanistenBox';
 			}
 			return;
 		}
@@ -30,9 +30,9 @@ Ext.define('Rambox.view.main.MainController', {
 
 		// Update the main window so it includes the active tab title.
 		if ( Rambox.app.getTotalNotifications() > 0 ) {
-			document.title = 'Rambox ('+ Rambox.app.getTotalNotifications() +') - ' + newTab.record.get('name');
+			document.title = 'HumanistenBox ('+ Rambox.app.getTotalNotifications() +') - ' + newTab.record.get('name');
 		} else {
-			document.title = 'Rambox - ' + newTab.record.get('name');
+			document.title = 'HumanistenBox - ' + newTab.record.get('name');
 		}
 	}
 

@@ -48,6 +48,7 @@ Ext.define('Rambox.store.ServicesList', {
 			description: 'Codeverwaltung.',
 			url: 'https://code.diehumanisten.de',
 			type: 'pdh-it',
+			align: 'right',
 			editable: false
 		},
 		{
