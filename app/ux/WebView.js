@@ -250,6 +250,10 @@ Ext.define('Rambox.ux.WebView',{
 
 		var webview = me.down('component').el.dom;
 
+		//Humanist <<<
+		require('electron-context-menu')({window: webview});
+		//Humanist >>>
+
 		// Notifications in Webview
 		me.setNotifications(localStorage.getItem('locked') || JSON.parse(localStorage.getItem('dontDisturb')) ? false : me.record.get('notifications'));
 
