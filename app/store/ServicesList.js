@@ -32,6 +32,16 @@ Ext.define('Rambox.store.ServicesList', {
 			editable: false
 		},
 		{
+			id: 'ilias',
+			logo: 'ilias.png'			,
+			name: 'Ilias'			,
+			description: 'Ilias.',
+			url: 'https://ilias.diehumanisten.de',
+			type: 'mitarbeiter',
+			align: 'right',
+			editable: false
+		},
+		{
 			id: 'gitlab',
 			logo: 'gitlab.png'			,
 			name: 'GitLab'			,
