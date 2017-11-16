@@ -438,7 +438,7 @@ Ext.define('Rambox.view.main.MainController', {
 							,autoEl: {
 								 tag: 'h1'
 								,html: locale['app.window[26]']
-								,style: 'text-align:center;width:256px;'
+								,style: 'text-align:center;width:256px;color:white;'
 						   }
 						}
 						,{
@@ -456,6 +456,7 @@ Ext.define('Rambox.view.main.MainController', {
 						,{
 							 xtype: 'button'
 							,text: locale['app.window[27]']
+							,style: 'background-color:#dddd33;'
 							,glyph: 'xf13e@FontAwesome'
 							,width: 256
 							,scale: 'large'

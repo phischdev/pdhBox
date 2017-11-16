@@ -175,7 +175,7 @@ module.exports = function (config) {
 		// }
 	];
 
-	if (process.platform !== 'darwin') {
+	if (process.platform === 'darwin') {
 		tpl.unshift({
 			label: appName,
 			submenu: [
