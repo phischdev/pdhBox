@@ -117,6 +117,14 @@ Ext.define('Rambox.store.ServicesList', {
 			,editable: false
 		},
 		{
+			id: 'twitter'
+			,logo: 'twitter.png'
+			,name: 'Twitter'
+			,type: 'mitglieder'
+			,url: "https://twitter.com/DieHumanisten"
+			,editable: false
+		},
+		{
 			id: 'gdrive'
 			,logo: 'gdrive.png'
 			,name: 'Google Drive'
@@ -138,16 +146,15 @@ Ext.define('Rambox.store.ServicesList', {
 			,dont_update_unread_from_title: true
 			,js_unread: 'function checkUnread(){updateBadge(document.getElementById("hangout-landing-chat").lastChild.contentWindow.document.body.getElementsByClassName("ee").length)}function updateBadge(e){e>=1?rambox.setUnreadCount(e):rambox.clearUnreadCount()}setInterval(checkUnread,3000);'
 		},
-
-		{
-			id: 'tweetdeck'
-			,logo: 'tweetdeck.png'
-			,name: 'TweetDeck'
-			,description: locale['services[36]']
-			,url: 'https://tweetdeck.twitter.com/'
-			,type: 'pdh-presse'
-			,align: 'right'
-		},
+		// {
+		// 	id: 'tweetdeck'
+		// 	,logo: 'tweetdeck.png'
+		// 	,name: 'TweetDeck'
+		// 	,description: locale['services[36]']
+		// 	,url: 'https://tweetdeck.twitter.com/'
+		// 	,type: 'pdh-presse'
+		// 	,align: 'right'
+		// },
 		{
 			id: 'custom'
 			,logo: 'custom.png'
@@ -197,15 +204,15 @@ Ext.define('Rambox.store.ServicesList', {
 			,js_unread: 'Element.prototype.remove=function(){this.parentElement.removeChild(this)},NodeList.prototype.remove=HTMLCollection.prototype.remove=function(){for(var e=this.length-1;e>=0;e--)this[e]&&this[e].parentElement&&this[e].parentElement.removeChild(this[e])},document.getElementsByClassName("owa-banner").remove(),document.getElementsByTagName("footer").remove(),document.getElementsByTagName("aside").remove(),document.getElementsByTagName("h1").remove();'
 			,editable: false
 		},
-		// {
-		// 	id: 'hootsuite'
-		// 	,logo: 'hootsuite.png'
-		// 	,name: 'Hootsuite'
-		// 	,align: 'right'
-		// 	,description: 'Enhance your social media management with Hootsuite, the leading social media dashboard. Manage multiple networks and profiles and measure your campaign results.'
-		// 	,url: 'https://hootsuite.com/dashboard'
-		// 	,type: 'mitarbeiter'
-		// },
+		{
+			id: 'hootsuite'
+			,logo: 'hootsuite.png'
+			,name: 'Hootsuite'
+			,align: 'right'
+			,description: 'Enhance your social media management with Hootsuite, the leading social media dashboard. Manage multiple networks and profiles and measure your campaign results.'
+			,url: 'https://hootsuite.com/dashboard'
+			,type: 'pdh-presse'
+		},
 		// {
 		// 	id: 'likeshare'
 		// 	,logo: 'wordpress.png'
