@@ -88,7 +88,7 @@ module.exports = function (config) {
 					type: 'separator'
 				},
 				{
-					label: `&Clear Cache`,
+					label: `&Cache leeren`,
 					click(item, win) {
 						win.webContents.session.clearCache(function () {
 							win.reload();
@@ -96,7 +96,7 @@ module.exports = function (config) {
 					}
 				},
 				{
-					label: `&Clear Local Storage`,
+					label: `&Lokalen Speicher leeren`,
 					click(item, win) {
 						win.webContents.session.clearStorageData({
 							storages: ['localstorage']

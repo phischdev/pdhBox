@@ -1,7 +1,7 @@
 {
-	"name": "HumanistenBox",
+	"name": "humanistenbox",
 	"productName": "HumanistenBox",
-	"version": "0.3.2",
+	"version": "0.5.3",
 	"description": "HumanistenBox",
 	"main": "electron/main.js",
 	"private": true,

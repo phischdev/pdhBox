@@ -170,100 +170,30 @@ Ext.define('Rambox.Application', {
 				"editable": true,
 				"disable_security": false,
 				"id": 10
-			}];
-			// const defaults =[
-			// 		{
-			// 			"position": 1,
-			// 			"type": "info",
-			// 			"logo": "custom.png",
-			// 			"name": "Info",
-			// 			"url": "https://tools.diehumanisten.de",
-			// 			"align": "left",
-			// 			"notifications": true,
-			// 			"muted": false,
-			// 			"displayTabUnreadCounter": false,
-			// 			"includeInGlobalUnreadCounter": false,
-			// 			"trust": false,
-			// 			"enabled": true,
-			// 			"js_unread": "",
-			// 			"zoomLevel": 0,
-			// 			"id": 11,
-			// 			"removable": false
-			// 		},
-			// 		{
-			// 			"position": 2,
-			// 			"type": "slack",
-			// 			"logo": "slack.png",
-			// 			"name": "Slack",
-			// 			"url": "https://pgs-diehumanisten.slack.com/",
-			// 			"align": "left",
-			// 			"notifications": true,
-			// 			"muted": false,
-			// 			"displayTabUnreadCounter": true,
-			// 			"includeInGlobalUnreadCounter": true,
-			// 			"trust": true,
-			// 			"enabled": true,
-			// 			"js_unread": "",
-			// 			"zoomLevel": 0,
-			// 			"id": 1,
-			// 			"removable": false
-			// 		},
-			// 		{
-			// 			"position": 3,
-			// 			"type": "trello",
-			// 			"logo": "trello.png",
-			// 			"name": "Trello",
-			// 			"url": "https://trello.com/mitgliederpdh",
-			// 			"align": "left",
-			// 			"notifications": true,
-			// 			"muted": false,
-			// 			"displayTabUnreadCounter": true,
-			// 			"includeInGlobalUnreadCounter": true,
-			// 			"trust": true,
-			// 			"enabled": true,
-			// 			"js_unread": "",
-			// 			"zoomLevel": 0,
-			// 			"id": 10,
-			// 			"removable": false
-			// 		},
-			// 		{
-			// 			"position": 4,
-			// 			"type": "discourse",
-			// 			"logo": "discourse.png",
-			// 			"name": "Disk",
-			// 			"url": "https://disk.diehumanisten.de",
-			// 			"align": "left",
-			// 			"notifications": true,
-			// 			"muted": false,
-			// 			"displayTabUnreadCounter": true,
-			// 			"includeInGlobalUnreadCounter": true,
-			// 			"trust": true,
-			// 			"enabled": true,
-			// 			"js_unread": "",
-			// 			"zoomLevel": 0,
-			// 			"id": 16,
-			// 			"removable": false
-			// 		},
-            //
-			// 		{
-			// 			"position": 5,
-			// 			"type": "wiki",
-			// 			"logo": "wiki.png",
-			// 			"name": "Wiki",
-			// 			"url": "http://wiki.diehumanisten.de/wiki",
-			// 			"align": "left",
-			// 			"notifications": true,
-			// 			"muted": false,
-			// 			"displayTabUnreadCounter": true,
-			// 			"includeInGlobalUnreadCounter": true,
-			// 			"trust": true,
-			// 			"enabled": true,
-			// 			"js_unread": "",
-			// 			"zoomLevel": 0,
-			// 			"id": 18,
-			// 			"removable": false
-			// 		}
-			// 	];
+			},{
+				"position":7,
+				"type":"twitter",
+				"logo":"twitter.png",
+				"name":"Twitter",
+				"url":"https://twitter.com/DieHumanisten",
+				"align":"left",
+				"notifications":true,
+				"muted":false,
+				"tabname":true,
+				"statusbar":true,
+				"displayTabUnreadCounter":true,
+				"includeInGlobalUnreadCounter":true,
+				"trust":true,
+				"enabled":true,
+				"js_unread":"",
+				"zoomLevel":0,
+				"removable":true,
+				"editable":true,
+				"disable_security":false,
+				"id":39
+			}
+			];
+			
 
 			defaults.forEach( function(s) {
 				var service = Ext.create('Rambox.model.Service', s);
@@ -293,7 +223,7 @@ Ext.define('Rambox.Application', {
 
 		// Humanisten >>>
 		// EXPORT DEFUALT SERVICES
-		// this.exportDefaultServices();
+		this.exportDefaultServices();
 		this.defaultServices();
 		//TODO: Ext.cq1('app-main').doInitialFilter();
 		/// Humanisten <<<

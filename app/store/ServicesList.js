@@ -68,14 +68,14 @@ Ext.define('Rambox.store.ServicesList', {
 			type: 'mitglieder',
 			editable: false
 		},
-		{
-			id: 'itwiki',
-			logo: 'wiki.png'			,
-			name: 'IT-Wiki'			,
-			url: '',
-			type: 'pdh-it',
-			editable: true
-		},
+		// {
+		// 	id: 'itwiki',
+		// 	logo: 'wiki.png'			,
+		// 	name: 'IT-Wiki'			,
+		// 	url: '',
+		// 	type: 'pdh-it',
+		// 	editable: true
+		// },
 		{
 			 id: 'slack'
 			,logo: 'slack.png'
