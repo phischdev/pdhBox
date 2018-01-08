@@ -11,7 +11,16 @@
 
 <h5 align="center">Für Windows, Mac und Linux.</h5>
 
-<h5 align="center"><a href="https://github.com/phischdev/pdhBox/releases" target="_blank"><img src="https://cdn.rawgit.com/saenzramiro/rambox/gh-pages/images/img-download.svg" width="250" alt="DOWNLOAD HERE"></a></h5>
+<h5 align="center">
+<a href="https://github.com/phischdev/pdhBox/releases" target="_blank"><img src="https://cdn.rawgit.com/saenzramiro/rambox/gh-pages/images/img-download.svg" width="250" alt="DOWNLOAD HERE"></a>
+</h5>
+
+<p align="center">
+	<a href="https://travis-ci.org/phischdev/pdhbox" target="_blank"><img src="https://travis-ci.org/phischdev/pdhbox.svg?branch=master" alt="Travis CI"></a>
+	<a "https://david-dm.org/phischdev/pdhbox" title="Dependency status"><img src="https://david-dm.org/phischdev/pdhBox.svg" /></a>
+	<a "https://david-dm.org/phischdev/pdhbox#info=devDependencies" title="devDependency status"><img src="https://david-dm.org/phischdev/pdhBox/dev-status.svg" /></a>
+	<a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank"><img src="https://img.shields.io/github/license/phischdev/pdhbox.svg" alt="GNU GPL v3"></a>
+</p>
 
 ----------
 
