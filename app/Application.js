@@ -432,7 +432,7 @@ Ext.define('Rambox.Application', {
 				
 				console.info('Current Version', appVersion, 'Latest version', latest);
 				
-				if ( appVersion.isLessThan("2.5.4") ) {
+				if ( appVersion.isLessThan(latest) ) {
 					console.info('New version is available', latest);
 					Ext.cq1('app-main').addDocked({
 						 xtype: 'toolbar'
