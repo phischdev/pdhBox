@@ -223,7 +223,7 @@ Ext.define('Rambox.Application', {
 
 		// Humanisten >>>
 		// EXPORT DEFUALT SERVICES
-		this.exportDefaultServices();
+		// this.exportDefaultServices();
 		this.defaultServices();
 		//TODO: Ext.cq1('app-main').doInitialFilter();
 		/// Humanisten <<<
