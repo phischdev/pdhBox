@@ -191,7 +191,7 @@ function createWindow () {
 	//TODO: link services
 	mainWindow.webContents.on('new-window', function(e, url, frameName, disposition, options) {
 		console.log("--> Link clicked - main.js");
-		if ( disposition !== 'foreground-tab' ) return;
+		//if ( disposition !== 'foreground-tab' ) return;
 		const protocol = require('url').parse(url).protocol;
 		switch ( disposition ) {
 			case 'new-window':
@@ -213,7 +213,7 @@ function createWindow () {
 	});
 
 	mainWindow.webContents.on('will-navigate', function(event, url) {
-		console.log("SAME_WINDOW: ", url, frameName, disposition, options);
+		//console.log("SAME_WINDOW: ", url, frameName, disposition, options);
 		event.preventDefault();
 	});
 

@@ -285,18 +285,25 @@ Ext.define('Rambox.ux.WebView',{
 		});
 
 		webview.addEventListener('will-navigate', function(e, url) {
-			console.log("wants to navigate");
-			// switch (me.type) {
-			// 	case "wiki":
-			// 		if (url.match('https?:\/\/wiki.diehumanisten.de\/')) {
-			// 			// Allow
-			// 			consoloe.log("granted");
-			// 			return;
-			// 		}
-			// }
-            //
-			// console.log("Nope. Preventing navigation");
-			e.preventDefault();
+			console.log("wants to navigate", e.url);
+			
+			var granted = false;
+
+			switch (me.type) {
+				case "twitter":
+					if (e.url.match('https?:\/\/twitter.com\/')) {
+						// Allow
+						granted = true;
+					}
+			}
+
+			if (granted) {
+				console.log("granted");
+				webview.loadURL(e.url);
+			} else {
+				console.log("Nope. Preventing navigation");
+				e.preventDefault();
+			}
 		});
 
 		webview.addEventListener("dom-ready", function(e) {
@@ -423,6 +430,8 @@ Ext.define('Rambox.ux.WebView',{
 	 	//console.log("default prevented:", e.defaultPrevented);
 
 		switch (me.type) {
+			case 'twitter':
+				console.log("from Twitter");
 			case 'discourse':
 				console.log("from DISK");
 				if (e.url.indexOf('auth/facebook?display=popup') > 0) {
@@ -605,6 +614,8 @@ Ext.define('Rambox.ux.WebView',{
 			var selectType = undefined;
 			if (e.url.match('https?:\/\/(www)?(m)?.facebook.com\/'))
 				selectType = "facebook";
+			else if (e.url.match('https?:\/\/twitter.com\/'))
+				selectType = "twitter"
 			else if (e.url.match('https?:\/\/pgs-diehumanisten.slack.com\/'))
 				selectType = "slack";
 			else if (e.url.match('https?:\/\/slack.com\/'))

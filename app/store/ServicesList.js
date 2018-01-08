@@ -121,6 +121,7 @@ Ext.define('Rambox.store.ServicesList', {
 			,logo: 'twitter.png'
 			,name: 'Twitter'
 			,type: 'mitglieder'
+			,allow_popups: true
 			,url: "https://twitter.com/DieHumanisten"
 			,editable: false
 		},
