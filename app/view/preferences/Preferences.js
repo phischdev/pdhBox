@@ -53,38 +53,38 @@ Ext.define('Rambox.view.preferences.Preferences',{
 				 xtype: 'form'
 				,bodyPadding: 20
 				,items: [
-					// {
-					// 	xtype: 'container'
-					// 	,layout: 'hbox'
-					// 	,items: [
-					// 		{
-					// 			 xtype: 'combo'
-					// 			,name: 'locale'
-					// 			,fieldLabel: 'Language'
-					// 			,labelAlign: 'left'
-					// 			,flex: 1
-					// 			,labelWidth: 80
-					// 			,value: config.locale
-					// 			,displayField: 'label'
-					// 			,valueField: 'value'
-					// 			,editable: false
-					// 			,store: Ext.create('Ext.data.Store', {
-					// 				 fields: ['value', 'label']
-					// 				,data: [
-					// 					// ,{ 'value': 'en', 'auth0': 'en', 'label': 'English' }
-					// 					//,{ 'value': 'de', 'auth0': 'de', 'label': 'German' }
-					// 					{ 'value': 'de-humanisten', 'auth0': 'de', 'label': 'Humanistendeutsch' }
-					// 				]
-					// 			})
-					// 		}
-					// 		// ,{
-					// 		// 	 xtype: 'button'
-					// 		// 	,text: 'Help us Translate'
-					// 		// 	,style: 'border-top-left-radius:0;border-bottom-left-radius:0;'
-					// 		// 	,href: 'https://crowdin.com/project/rambox/invite'
-					// 		// }
-					// 	]
-					// }
+					{
+						xtype: 'container'
+						,layout: 'hbox'
+						,items: [
+							{
+								 xtype: 'combo'
+								,name: 'locale'
+								,fieldLabel: 'Language'
+								,labelAlign: 'left'
+								,flex: 1
+								,labelWidth: 80
+								,value: config.locale
+								,displayField: 'label'
+								,valueField: 'value'
+								,editable: false
+								,store: Ext.create('Ext.data.Store', {
+									 fields: ['value', 'label']
+									,data: [
+										// ,{ 'value': 'en', 'auth0': 'en', 'label': 'English' }
+										//,{ 'value': 'de', 'auth0': 'de', 'label': 'German' }
+										{ 'value': 'de-humanisten', 'auth0': 'de', 'label': 'Humanistendeutsch' }
+									]
+								})
+							}
+							// ,{
+							// 	 xtype: 'button'
+							// 	,text: 'Help us Translate'
+							// 	,style: 'border-top-left-radius:0;border-bottom-left-radius:0;'
+							// 	,href: 'https://crowdin.com/project/rambox/invite'
+							// }
+						]
+					}
 					// ,{
 					// 	 xtype: 'label'
 					// 	,text: 'English is the only language that has full translation. We are working with all the others, help us!'
