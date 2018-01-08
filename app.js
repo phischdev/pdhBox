@@ -27,7 +27,7 @@ ipc.on('showPreferences', function(event, message) {
 	!Ext.cq1('preferences') ? Ext.create('Rambox.view.preferences.Preferences').show() : '';
 });
 ipc.on('autoUpdater:check-update', function() {
-	//Rambox.app.checkUpdate();
+	Rambox.app.checkUpdate();
 });
 ipc.on('autoUpdater:update-not-available', function() {
 	Ext.Msg.show({

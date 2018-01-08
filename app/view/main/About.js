@@ -7,7 +7,7 @@ Ext.define('Rambox.view.main.About', {
 	,resizable: false
 	,constrain: true
 	,width: 300
-	,height: 450
+	,height: 460
 	,bodyPadding: 10
 	,data: {
 		 version: require('electron').remote.app.getVersion()
@@ -19,7 +19,7 @@ Ext.define('Rambox.view.main.About', {
 	}
 	,tpl: [
 		 '<div style="text-align:center;"><img src="resources/Icon.png" width="100" /></div>'
-		,'<h3>'+locale['app.about[1]']+'</h3>'
+		,'<div style="text-align:center;"><h3>'+locale['app.about[1]']+'</h3></div>'
 		,'<div><b>'+locale['app.about[2]']+':</b> {version}</div>'
 		,'<div><b>'+locale['app.about[3]']+':</b> {platform} ({arch})</div>'
 		,'<div><b>Electron:</b> {electron}</div>'
@@ -29,5 +29,7 @@ Ext.define('Rambox.view.main.About', {
 		,'<div style="text-align:center;"><a href="https://github.com/phischdev/pdhbox" target="_blank">GitHub</a> - <a href="https://diehumanisten.de/" target="_blank">'+'Die Humanisten'+'</a></div>'
 		,'<br />'
 		,'<div style="text-align:center;"><i>'+locale['app.about[4]']+'</i></div>'
+		,'<br />'
+		,'<div style="text-align:center;">'+locale['app.about[4.1]']+'</div>'
 	]
 });

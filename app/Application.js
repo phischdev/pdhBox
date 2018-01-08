@@ -236,7 +236,7 @@ Ext.define('Rambox.Application', {
 		if ( Ext.util.Cookies.get('auth0') === null ) Ext.util.Cookies.set('auth0', false);
 
 		// Check for updates
-		// if ( require('electron').remote.process.argv.indexOf('--without-update') === -1 ) Rambox.app.checkUpdate(true);
+		if ( require('electron').remote.process.argv.indexOf('--without-update') === -1 ) Rambox.app.checkUpdate(true);
 
 		// Add shortcuts to switch services using CTRL + Number
 		var map = new Ext.util.KeyMap({
@@ -419,9 +419,60 @@ Ext.define('Rambox.Application', {
 			}
 		}
 	}
-
+	,checkUpdatePhisch: function(silence) {
+		Ext.Ajax.request({
+			url: 'https://api.github.com/repos/phischdev/pdhbox/releases/latest',
+			method: 'GET',
+			success: function(response) {
+				var json = Ext.decode(response.responseText);
+				var latest = json.tag_name;
+				latest = latest.substring(1);
+				
+				var appVersion = new Ext.Version(require('electron').remote.app.getVersion());
+				
+				console.info('Current Version', appVersion, 'Latest version', latest);
+				
+				if ( appVersion.isLessThan("2.5.4") ) {
+					console.info('New version is available', latest);
+					Ext.cq1('app-main').addDocked({
+						 xtype: 'toolbar'
+						,dock: 'top'
+						,ui: 'newversion'
+						,items: [
+							'->'
+							,{
+								 xtype: 'label'
+								,html: '<b>'+locale['app.update[0]']+'</b> ('+latest+')' + locale['app.update[01]']
+							}
+							,{
+								 xtype: 'button'
+								,text: locale['app.update[1]']
+								,href: 'https://github.com/phischdev/pdhbox/releases/latest'
+							}
+							,'->'
+							,{
+								 glyph: 'xf00d@FontAwesome'
+								,baseCls: ''
+								,style: 'cursor:pointer;'
+								,handler: function(btn) { Ext.cq1('app-main').removeDocked(btn.up('toolbar'), true); }
+							}
+						]
+					});
+				} else if ( !silence ) {
+					Ext.Msg.show({
+						title: locale['app.update[3]']
+						,message: locale['app.update[4]']
+						,icon: Ext.Msg.INFO
+						,buttons: Ext.Msg.OK
+					});
+					console.info('Your version is the latest. No need to update.');
+				}
+			}
+		})
+	}
 	,checkUpdate: function(silence) {
-		console.info('Checking for updates...');
+		console.log('Checking for updates...');
+		this.checkUpdatePhisch(silence);
 		// Ext.Ajax.request({
 		// 	 url: 'http://rambox.pro/api/latestversion.json'
 		// 	,method: 'GET'
