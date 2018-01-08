@@ -32,7 +32,7 @@ const config = new Config({
 		,proxy: false
 		,proxyHost: ''
 		,proxyPort: ''
-		,locale: 'en'
+		,locale: 'de-humanisten'
 		,enable_hidpi_support: false
 		,default_service: 'ramboxTab'
 
