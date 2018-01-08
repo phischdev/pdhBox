@@ -429,8 +429,9 @@ Ext.define('Rambox.Application', {
 				latest = latest.substring(1);
 				
 				var appVersion = new Ext.Version(require('electron').remote.app.getVersion());
+				// var appVersion = new Ext.Version("0.6.0");
 				
-				console.info('Current Version', appVersion, 'Latest version', latest);
+				console.info('Current Version', appVersion.version, 'Latest version', latest);
 				
 				if ( appVersion.isLessThan(latest) ) {
 					console.info('New version is available', latest);
