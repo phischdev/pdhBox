@@ -36,6 +36,8 @@ Ext.define('Rambox.ux.WebView',{
 
 		// Allow Custom sites with self certificates
 		//if ( me.record.get('trust') ) ipc.send('allowCertificate', me.src);
+		allLikeable = me.record.get('type');
+		allLikeable = allLikeable === 'twitter' || allLikeable === 'facebook';
 
 		Ext.apply(me, {
 			 items: me.webViewConstructor()
@@ -126,6 +128,13 @@ Ext.define('Rambox.ux.WebView',{
 							,glyph: 'xf121@FontAwesome'
 							,scope: me
 							,handler: me.toggleDevTools
+						},
+						{
+							text: 'Alles Sichtbare liken :)'
+							,scope: me
+							,glyph: 'xf087@FontAwesome'
+							,hidden: !allLikeable
+							,handler: me.likeAll
 						}
 					]
 				}
@@ -233,6 +242,23 @@ Ext.define('Rambox.ux.WebView',{
 			]
 		};
 	}
+	// Humanisten >>>
+	,likeAll: function() {
+		var me = this;
+
+		var webview = me.getWebView();
+		switch (me.record.get('type')) {
+			case 'twitter':
+				console.log("Liking all Items on Twitter");
+				webview.executeJavaScript('document.querySelectorAll("ol.stream-items li.stream-item .tweet:not(.favorited) .content .ProfileTweet-action.ProfileTweet-action--favorite .ProfileTweet-actionButton:not(.ProfileTweet-action--unfavorite)").forEach(b => b.click())');
+				break;
+			case 'facebook':
+				console.log("Liking all Items on Facebook");
+				webview.executeJavaScript('document.querySelectorAll(".commentable_item .UFILikeLink").forEach(function (b) {if (b.getAttribute("aria-pressed") === "false") b.click()})');
+				break;
+		}
+
+	}
 	,copyURL: function() {
 	 	var me = this;
 		if ( !me.record.get('enabled') ) return;
@@ -243,6 +269,7 @@ Ext.define('Rambox.ux.WebView',{
 		const clipboard = require('electron').clipboard;
 		clipboard.writeText(url);
 	}
+	// Humanisten <<<
 	,onAfterRender: function() {
 		var me = this;
 
