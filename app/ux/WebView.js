@@ -247,16 +247,23 @@ Ext.define('Rambox.ux.WebView',{
 		var me = this;
 
 		var webview = me.getWebView();
+		var selector = undefined
 		switch (me.record.get('type')) {
 			case 'twitter':
 				console.log("Liking all Items on Twitter");
-				webview.executeJavaScript('document.querySelectorAll("ol.stream-items li.stream-item .tweet:not(.favorited) .content .ProfileTweet-action.ProfileTweet-action--favorite .ProfileTweet-actionButton:not(.ProfileTweet-action--unfavorite)").forEach(b => b.click())');
+				selector = '[...document.querySelectorAll("ol.stream-items li.stream-item .tweet:not(.favorited) .content .ProfileTweet-action.ProfileTweet-action--favorite .ProfileTweet-actionButton:not(.ProfileTweet-action--unfavorite)")]'
 				break;
 			case 'facebook':
 				console.log("Liking all Items on Facebook");
-				webview.executeJavaScript('document.querySelectorAll(".commentable_item .UFILikeLink").forEach(function (b) {if (b.getAttribute("aria-pressed") === "false") b.click()})');
+				selector = '[...document.querySelectorAll(".commentable_item .UFILikeLink:not(.UFIReactionLink)")].filter( b => (b.getAttribute("aria-pressed") === "false"))'
 				break;
+			default:
+				return;
 		}
+
+		const loop = '.forEach( (b, index) => setTimeout(() => b.click(), index * 1000))'
+	
+		webview.executeJavaScript(selector + loop);
 
 	}
 	,copyURL: function() {

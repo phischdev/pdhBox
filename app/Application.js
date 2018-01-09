@@ -64,7 +64,7 @@ Ext.define('Rambox.Application', {
 				"removable": false,
 				"editable": true,
 				"disable_security": false,
-				"id": 11
+				"id": 1
 			}, {
 				"position": 2,
 				"type": "slack",
@@ -85,7 +85,7 @@ Ext.define('Rambox.Application', {
 				"removable": false,
 				"editable": true,
 				"disable_security": false,
-				"id": 1
+				"id": 2
 			}, {
 				"position": 3,
 				"type": "trello",
@@ -106,7 +106,7 @@ Ext.define('Rambox.Application', {
 				"removable": false,
 				"editable": true,
 				"disable_security": false,
-				"id": 2
+				"id": 3
 			}, {
 				"position": 4,
 				"type": "discourse",
@@ -127,7 +127,7 @@ Ext.define('Rambox.Application', {
 				"removable": false,
 				"editable": true,
 				"disable_security": false,
-				"id": 9
+				"id": 4
 			}, {
 				"position": 5,
 				"type": "wiki",
@@ -150,7 +150,7 @@ Ext.define('Rambox.Application', {
 				"disable_security": false,
 				"id": 5
 			}, {
-				"position": 6,
+				"position": 7,
 				"type": "facebook",
 				"logo": "facebook.png",
 				"name": "Facebook",
@@ -169,9 +169,9 @@ Ext.define('Rambox.Application', {
 				"removable": true,
 				"editable": true,
 				"disable_security": false,
-				"id": 10
+				"id": 7
 			},{
-				"position":7,
+				"position":8,
 				"type":"twitter",
 				"logo":"twitter.png",
 				"name":"Twitter",
@@ -190,7 +190,7 @@ Ext.define('Rambox.Application', {
 				"removable":true,
 				"editable":true,
 				"disable_security":false,
-				"id":39
+				"id":8
 			}
 			];
 			
